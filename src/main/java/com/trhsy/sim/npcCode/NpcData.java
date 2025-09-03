@@ -86,7 +86,7 @@ public class NpcData {
     /**
      * NPC 的当前状态
      */
-    public String status = new TextComponentTranslation("container.sim.folk_data.Wandering", new Object[0]).getUnformattedText();
+    public String status = new TextComponentTranslation("container.sim.folk_data.Wandering", new Object[0]).getUnformattedComponentText();
     /**
      * NPC 的饱食度
      */
@@ -303,7 +303,7 @@ public class NpcData {
             world.spawnEntity(e);
             this.ID = this.entity.getUniqueID().toString();
             //刚刚进入该地区
-            String fs_ldzl = new TextComponentTranslation("container.sim.folk_data_just",new Object[0]).getUnformattedText();
+            String fs_ldzl = new TextComponentTranslation("container.sim.folk_data_just",new Object[0]).getUnformattedComponentText();
             ModSimLoader.sendChat(this.getName() + fs_ldzl);
             //返回可雇佣的人
             NetWorkLoader.net.sendToAll(new PacketReturnHireableFolks());
@@ -357,7 +357,7 @@ public class NpcData {
             this.ID = this.entity.getUniqueID();
 
             // 发送 NPC 刚刚进入该地区的消息
-            String fs_ldzl = new TextComponentTranslation("container.sim.folk_data_just", new Object[0]).getUnformattedText();
+            String fs_ldzl = new TextComponentTranslation("container.sim.folk_data_just", new Object[0]).getUnformattedComponentText();
             ModSimLoader.sendChat(this.getName() + fs_ldzl);
 
             // 向所有客户端发送可雇佣的人列表
@@ -765,7 +765,7 @@ public class NpcData {
                         BlockPos p;
                         String job = value.split(";")[0];
                         //建筑工
-                        if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
+                        if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedComponentText())) {
                             String v = value.split(";")[1];
                             //建筑/雇佣位置
                             p = V3.fromString(v).toBlockPos();
@@ -782,7 +782,7 @@ public class NpcData {
 
 
                             //面包师
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -792,7 +792,7 @@ public class NpcData {
                             }
                             this.job = new JobBaker(this, p, world);
                             //规划师
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedComponentText())) {
                             String[] v1=value.split(";");
                             if(v1.length>1){
                                 String v = v1[1];
@@ -806,7 +806,7 @@ public class NpcData {
                                 this.job = new JobTerrainFormer(this, terrainTypes, p, world);
                             }
                             //农民
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation5",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation5",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -817,7 +817,7 @@ public class NpcData {
                             FarmBox fb = ModSimLoader.getFarm(new V3(p));
                             this.job = new JobFarmer(this, p, world, fb);
                             //养猪户
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation13",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation13",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -825,16 +825,16 @@ public class NpcData {
                             if(p==null){
                                 break;
                             }
-                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_pig",new Object[0]).getUnformattedText(), world);
+                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_pig",new Object[0]).getUnformattedComponentText(), world);
                             //养牛户
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation12",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation12",new Object[0]).getUnformattedComponentText())) {
                             p = this.tempEmployLoc.toBlockPos();
                             if(p==null){
                                 break;
                             }
-                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_cow",new Object[0]).getUnformattedText(), world);
+                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_cow",new Object[0]).getUnformattedComponentText(), world);
                             //养鸡户
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation14",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation14",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -842,9 +842,9 @@ public class NpcData {
                             if(p==null){
                                 break;
                             }
-                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_chicken",new Object[0]).getUnformattedText(), world);
+                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_chicken",new Object[0]).getUnformattedComponentText(), world);
                             //养羊户
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation27",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation27",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -852,9 +852,9 @@ public class NpcData {
                             if(p==null){
                                 break;
                             }
-                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_sheep",new Object[0]).getUnformattedText(), world);
+                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_sheep",new Object[0]).getUnformattedComponentText(), world);
                             //养兔户
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation29",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation29",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -862,9 +862,9 @@ public class NpcData {
                             if(p==null){
                                 break;
                             }
-                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_rabbit",new Object[0]).getUnformattedText(), world);
+                            this.job = new JobLivestockFarmer(this, p, new TextComponentTranslation("container.sim.job_Livestock_rabbit",new Object[0]).getUnformattedComponentText(), world);
                             //牛奶农
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation20",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation20",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -874,7 +874,7 @@ public class NpcData {
                             }
                             this.job = new JobDairyFarmer(this, p, world);
                             //牧羊人
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation8",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation8",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -884,7 +884,7 @@ public class NpcData {
                             }
                             this.job = new JobShepherd(this, p, world);
                             //鸡蛋农
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation3",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation3",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -894,7 +894,7 @@ public class NpcData {
                             }
                             this.job = new JobEggFarmer(this, p, world);
                             //屠夫
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -904,7 +904,7 @@ public class NpcData {
                             }
                             this.job = new JobButcher(this, p, world);
                             //渔夫
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation18",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation18",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -914,7 +914,7 @@ public class NpcData {
                             }
                             this.job = new JobFisherman(this, p, world);
                             //食品商
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation26",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation26",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -924,7 +924,7 @@ public class NpcData {
                             }
                             this.job = new JobGrocer(this, p, world);
                             //士兵
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -934,7 +934,7 @@ public class NpcData {
                             }
                             this.job = new JobSoldier(this, p, world);
                             //伐木工
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation2",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation2",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -944,7 +944,7 @@ public class NpcData {
                             }
                             this.job = new JobLumberjack(this, p, world);
                             //制糖师
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation30",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation30",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -954,7 +954,7 @@ public class NpcData {
                             }
                             this.job = new JobSugar(this, p, world);
                             //矿工
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation4",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation4",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -965,7 +965,7 @@ public class NpcData {
                             MineBox mb = ModSimLoader.getMine(V3.fromBlockPos(p));
                             this.job = new JobMiner(this, p, world, mb);
                             //板砖工
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation25",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation25",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -975,7 +975,7 @@ public class NpcData {
                             }
                             this.job = new JobBrickMaker(this, p, world);
                             //玻璃制造商
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation17",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation17",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -985,7 +985,7 @@ public class NpcData {
                             }
                             this.job = new JobGlassMaker(this, p, world);
                             //建筑商
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation11",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation11",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -995,7 +995,7 @@ public class NpcData {
                             }
                             this.job = new JobBuildersMerchant(this, p, world);
                             //行长
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation31",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation31",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1005,7 +1005,7 @@ public class NpcData {
                             }
                             this.job = new JobATM(this, p, world);
                             //杂货商
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation9",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation9",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1015,7 +1015,7 @@ public class NpcData {
                             }
                             this.job = new JobMerchant(this, p, world);
                             //插花师
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation32",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation32",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1025,7 +1025,7 @@ public class NpcData {
                             }
                             this.job = new JobFlower(this, p, world);
                             //赤脚大夫
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation33",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation33",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1035,7 +1035,7 @@ public class NpcData {
                             }
                             this.job = new JobBarefootDoctor(this, p, world);
                             //妇产科医生
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation34",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation34",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1045,7 +1045,7 @@ public class NpcData {
                             }
                             this.job = new JobAccoucheur(this, p, world);
                             //汉堡店经理
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation36",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation36",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1055,7 +1055,7 @@ public class NpcData {
                             }
                             this.job = new JobBurgers(this, p, world);
                             //奶酪匠
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation21",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation21",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1065,7 +1065,7 @@ public class NpcData {
                             }
                             this.job = new JobCheesemaker(this, p, world);
                             //麦当劳
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation35",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation35",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1075,7 +1075,7 @@ public class NpcData {
                             }
                             this.job = new JobMcDonald(this, p, world);
                             //酒馆
-                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation37",new Object[0]).getUnformattedText())) {
+                        } else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation37",new Object[0]).getUnformattedComponentText())) {
                             if(this.tempEmployLoc==null){
                                 break;
                             }
@@ -1084,7 +1084,7 @@ public class NpcData {
                                 break;
                             }
                             this.job = new JobBartender(this, p, world);
-                        }else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation10",new Object[0]).getUnformattedText())) {
+                        }else if (job.contentEquals(new TextComponentTranslation("container.sim.Vocation10",new Object[0]).getUnformattedComponentText())) {
                             //快递员
                             if(this.tempEmployLoc==null){
                                 break;
@@ -1434,17 +1434,17 @@ public class NpcData {
      **/
     public void fire() {
         try {
-            this.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedText());
+            this.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedComponentText());
             if (this.job != null) {
                 //建筑工
-                if (this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
+                if (this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedComponentText())) {
                     JobBuilder jobBuilder = (JobBuilder) this.job;
                     if (jobBuilder != null && jobBuilder.conBox != null) {
                         jobBuilder.conBox.folk = null;
                     }
                 }
                 //规划师
-                if (this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())) {
+                if (this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedComponentText())) {
                     JobTerrainFormer jobTerrainFormer = (JobTerrainFormer) this.job;
                     if (jobTerrainFormer != null && jobTerrainFormer.conBox != null) {
                         jobTerrainFormer.conBox.folk = null;
@@ -1628,14 +1628,14 @@ public class NpcData {
                     if (this.job != null) {
                         writer.write("employedat|" + this.job.workPlace.toString() + "\n");
                         //建筑师
-                        if (this.job.jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
+                        if (this.job.jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedComponentText())) {
                             JobBuilder jb = (JobBuilder) this.job;
                             if (jb.blueprint != null) {
                                 writer.write("building|" + jb.blueprint.name + "\n");
                             }
                             writer.write("job|" + this.job.jobName + ";" + jb.workPlace.toString() + ";" + jb.direction + "\n");
                             //规划师
-                        } else if (this.job.jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())) {
+                        } else if (this.job.jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedComponentText())) {
                             JobTerrainFormer jb = (JobTerrainFormer) this.job;
                             if (jb.terrainType != null) {
                                 writer.write("job|" + this.job.jobName + ";" + jb.workPlace.toString() + ";" + jb.terrainType.terrainName + ";" + jb.terrainType.terrainType + "\n");
@@ -1757,7 +1757,7 @@ public class NpcData {
      **/
     public String getJobTitle() {
         /**被解雇的**/
-        String s = new TextComponentTranslation("container.sim.gui_Folk_unemployed",new Object[0]).getUnformattedText();
+        String s = new TextComponentTranslation("container.sim.gui_Folk_unemployed",new Object[0]).getUnformattedComponentText();
         return this.job != null ? this.job.toString() : s;
 //        return "Unemployed";
     }
@@ -1770,8 +1770,8 @@ public class NpcData {
      * @Param []
      **/
     public String getHousingStatus() {
-        String s = new TextComponentTranslation("container.sim.folkData3",new Object[0]).getUnformattedText();
-        String s1 = new TextComponentTranslation("container.sim.folkData2",new Object[0]).getUnformattedText();
+        String s = new TextComponentTranslation("container.sim.folkData3",new Object[0]).getUnformattedComponentText();
+        String s1 = new TextComponentTranslation("container.sim.folkData2",new Object[0]).getUnformattedComponentText();
         return this.home != null ? s1 : s;
 //        return "Homeowner";
     }
@@ -1854,13 +1854,13 @@ public class NpcData {
         try {
             if (this.getFamily(EnumFamilyType.SPOUSE) != null) {
                 //已婚
-                relationshipStatus = new TextComponentTranslation("container.sim.relation_ship_Married",new Object[0]).getUnformattedText();
+                relationshipStatus = new TextComponentTranslation("container.sim.relation_ship_Married",new Object[0]).getUnformattedComponentText();
                 return relationshipStatus;
             } else {
                 //单身狗
-                String single = new TextComponentTranslation("container.sim.folkData4",new Object[0]).getUnformattedText();
+                String single = new TextComponentTranslation("container.sim.folkData4",new Object[0]).getUnformattedComponentText();
                 //有对象
-                String In_a_relationship = new TextComponentTranslation("container.sim.In_a_relationship",new Object[0]).getUnformattedText();
+                String In_a_relationship = new TextComponentTranslation("container.sim.In_a_relationship",new Object[0]).getUnformattedComponentText();
                 relationshipStatus = this.getFamily(EnumFamilyType.PARTNER) != null ? In_a_relationship : single;
                 return relationshipStatus;
             }
@@ -1883,15 +1883,15 @@ public class NpcData {
         try {
             if (this.hunger > 8) {
                 //吃饱的
-                hunger = new TextComponentTranslation("container.sim.folkData6",new Object[0]).getUnformattedText();
+                hunger = new TextComponentTranslation("container.sim.folkData6",new Object[0]).getUnformattedComponentText();
                 return hunger;
             } else if (this.hunger > 4) {
                 //有点饿
-                hunger = new TextComponentTranslation("container.sim.folkData7",new Object[0]).getUnformattedText();
+                hunger = new TextComponentTranslation("container.sim.folkData7",new Object[0]).getUnformattedComponentText();
                 return hunger;
             } else {
                 //非常饿  快饿死了
-                hunger = this.hunger > 1 ? new TextComponentTranslation("container.sim.folkData9",new Object[0]).getUnformattedText() : new TextComponentTranslation("container.sim.folkData8",new Object[0]).getUnformattedText();
+                hunger = this.hunger > 1 ? new TextComponentTranslation("container.sim.folkData9",new Object[0]).getUnformattedComponentText() : new TextComponentTranslation("container.sim.folkData8",new Object[0]).getUnformattedComponentText();
                 return hunger;
             }
         } catch (Exception e) {
@@ -2023,7 +2023,7 @@ public class NpcData {
             if (this.job != null && this.shouldWork()) {
                 if (!this.job.atWork) {
                     //如果没有在工作的时候，并且工作是面包师，工作阶段设置为-1
-                /*if (this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText())) {
+                /*if (this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedComponentText())) {
                     JobBaker jobBaker = (JobBaker) this.job;
                     boolean b = jobBaker.theStage == -1;
                 }*/
@@ -2032,7 +2032,7 @@ public class NpcData {
                 //有工作，不该工作的时候 实体不是空
             } else if (this.job != null && !this.shouldWork() && this.entity != null && this.job.atWork) {
                 //等待
-                this.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedText());
+                this.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedComponentText());
                 //工作阶段0
                 this.job.stage = 0;
                 //停止工作
@@ -2055,8 +2055,8 @@ public class NpcData {
                         if(!ModSimLoader.isDayTime(this.world)){
                             if(this.currentTask!=null){
                                 //睡觉
-                                String fs_n1=new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText();
-                                String fs_n2=new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedText();
+                                String fs_n1=new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedComponentText();
+                                String fs_n2=new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedComponentText();
                                 String fs_n3 =this.currentTask.getStatusText();
                                 //不等于睡觉或者回家则直接完成
                                 if(fs_n3!=null&&!fs_n3.equals(fs_n2)&&!fs_n3.equals(fs_n1)){
@@ -2074,12 +2074,12 @@ public class NpcData {
                                     }
                                     if(fs_n3!=null&&this.isAtBuilding(this.home)&&!fs_n3.equals(fs_n1)){
                                         //睡觉
-                                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
+                                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedComponentText()));
                                     }
                                 } else {
                                     if(fs_n3!=null&&!this.currentTask.getStatusText().equals(fs_n1)) {
                                         //睡觉 没有家直接睡觉
-                                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
+                                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedComponentText()));
                                     }
                                 }
                             }
@@ -2097,7 +2097,7 @@ public class NpcData {
                 } else if(!ModSimLoader.isDayTime(this.world)){
                     //晚上 不在家回家
                     if (this.home != null) {
-                        String fs_n2=new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedText();
+                        String fs_n2=new TextComponentTranslation("container.sim.folk_data_Going_home",new Object[0]).getUnformattedComponentText();
                         if (!this.isAtBuilding(this.home)) {
                             //回家
                             TaskGoTo taskGoTo=new TaskGoTo(this, -1L, this.home,fs_n2);
@@ -2111,7 +2111,7 @@ public class NpcData {
                         }
                         if(this.currentTask!=null){
                             //睡觉
-                            String fs_n1=new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText();
+                            String fs_n1=new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedComponentText();
                             if(this.isAtBuilding(this.home)&&!this.currentTask.getStatusText().equals(fs_n1)){
                                 //睡觉
                                 this.addTask(new TaskSleep(this, -1L, fs_n1));
@@ -2119,7 +2119,7 @@ public class NpcData {
                         }
                     } else {
                         //睡觉 没有家直接睡觉
-                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
+                        this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedComponentText()));
                     }
                 }
             }
@@ -2147,7 +2147,7 @@ public class NpcData {
             } else if (this.pregnancyStage > 0.0F) {
                 return false;
                 //士兵一直工作
-            } else if (this.job != null && this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedText())) {
+            } else if (this.job != null && this.job.jobName.equals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedComponentText())) {
                 return true;
             } else {
                 //白天
@@ -2182,7 +2182,7 @@ public class NpcData {
 
                     if (ModSimLoader.isDayTime(this.world) && this.stayPut && this.isSleeping && this.shouldWork()) {
                         //闲逛
-                        this.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedText());
+                        this.setStatus(new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedComponentText());
                         this.stayPut = false;
                         this.isSleeping = false;
                     }
@@ -2253,9 +2253,9 @@ public class NpcData {
                                 newHome.occupants.add(this);
                                 this.home = newHome;
                                 // 已经搬到了
-                                String s1 = new TextComponentTranslation("container.sim.npcData_onupdate1",new Object[0]).getUnformattedText();
+                                String s1 = new TextComponentTranslation("container.sim.npcData_onupdate1",new Object[0]).getUnformattedComponentText();
                                 // ，和TA父母一起
-                                String s2 = new TextComponentTranslation("container.sim.npcData_onupdate2",new Object[0]).getUnformattedText();
+                                String s2 = new TextComponentTranslation("container.sim.npcData_onupdate2",new Object[0]).getUnformattedComponentText();
                                 ModSimLoader.sendChat(this.getName() + s1 + this.home.buildingName + s2);
                             }
                         } else {
@@ -2268,7 +2268,7 @@ public class NpcData {
                                 }
                                 this.home = empty;
                                 // 已搬入
-                                String sText = this.getName() + new TextComponentTranslation("container.sim.npcData_onupdate3",new Object[0]).getUnformattedText() + empty.buildingName;
+                                String sText = this.getName() + new TextComponentTranslation("container.sim.npcData_onupdate3",new Object[0]).getUnformattedComponentText() + empty.buildingName;
                                 ModSimLoader.sendChat(sText);
                                 //System.out.println("开始传送");
                                 V3 v3=new V3(this.home.livingXYZ.x+0.5,this.home.livingXYZ.y,this.home.livingXYZ.z+0.5);
@@ -2297,8 +2297,8 @@ public class NpcData {
                         //必须要有诊所/医院 检查是否有诊所/医院
                         /*container.sim.FolkData.Clinic=诊所
                         container.sim.FolkData.Hospital=医院*/
-                        String fs_zshensuo=new TextComponentTranslation("container.sim.FolkData.Clinic",new Object[0]).getUnformattedText();
-                        String fs_yiyuan=new TextComponentTranslation("container.sim.FolkData.Hospital",new Object[0]).getUnformattedText();
+                        String fs_zshensuo=new TextComponentTranslation("container.sim.FolkData.Clinic",new Object[0]).getUnformattedComponentText();
+                        String fs_yiyuan=new TextComponentTranslation("container.sim.FolkData.Hospital",new Object[0]).getUnformattedComponentText();
                         Building building=null;
 
                         building=ModSimLoader.getBuildingByName(fs_zshensuo);
@@ -2329,15 +2329,15 @@ public class NpcData {
 //                                world.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
 //                            }
                             //刚生了个宝宝
-                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby", new Object[0]).getUnformattedText());
-                            String fs_ldzl =new TextComponentTranslation("container.sim.folk_data_a_baby", new Object[0]).getUnformattedText();
+                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby", new Object[0]).getUnformattedComponentText());
+                            String fs_ldzl =new TextComponentTranslation("container.sim.folk_data_a_baby", new Object[0]).getUnformattedComponentText();
                             ModSimLoader.sendChat(this.getName() +"::"+  fs_ldzl);
                         }else{
                             //孕妇难产死了 谢谢点赞
                             this.entity.setDead();//标记实体死亡
-                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby_day", new Object[0]).getUnformattedText());
+                            this.setStatus(new TextComponentTranslation("container.sim.folk_data_a_baby_day", new Object[0]).getUnformattedComponentText());
                             ModSimLoader.log.info("NPC {} 因无医疗设施难产致死", this.entity.getName());
-                            String fs_ldzl =new TextComponentTranslation("container.sim.folk_data_a_baby_day", new Object[0]).getUnformattedText();
+                            String fs_ldzl =new TextComponentTranslation("container.sim.folk_data_a_baby_day", new Object[0]).getUnformattedComponentText();
                             ModSimLoader.sendChat(this.getName() +"::"+  fs_ldzl);
 
                         }
@@ -2399,14 +2399,14 @@ public class NpcData {
             //有家并且随机任务是3
             if (this.home != null && new Random().nextInt(4) == 3) {
                 //回家在家放松
-                String s=new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedText();
+                String s=new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedComponentText();
                 addGoToTask(this.home,s, 5000, 8000);
-                //this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), this.home, new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedText()));
+                //this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), this.home, new TextComponentTranslation("container.sim.folk_data_Relaxing_home",new Object[0]).getUnformattedComponentText()));
             } else if (new Random().nextInt(4) == 3) {
                 for (Building b : ModSimLoader.buildings) {
                     if (b.controlXYZ.getDistanceTo(this.pos) < 40 && new Random().nextInt(4) == 3) {
                         //住宅
-                        String s1=new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText();
+                        String s1=new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedComponentText();
                         if (b.buildingType.contentEquals(s1)) {
                             for (NpcData fd : b.occupants) {
                                 if (!(fd.currentTask instanceof TaskWander) && !(fd.currentTask instanceof TaskGoTo) && fd.currentTask != null) {
@@ -2430,29 +2430,29 @@ public class NpcData {
                         }
                         //根据建筑类型添加任务，减少任务时长
                         //商业
-                        if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Commercial",new Object[0]).getUnformattedText())) {
-                            String s=new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName;
+                        if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Commercial",new Object[0]).getUnformattedComponentText())) {
+                            String s=new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedComponentText() + b.buildingName;
                             int duration = new Random().nextInt(5000);
                             addGoToTask(b, s, duration, 8000);
-//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedText() + b.buildingName));
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Shopping",new Object[0]).getUnformattedComponentText() + b.buildingName));
                             //工业
-                        } else if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Industrial",new Object[0]).getUnformattedText())) {
-                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
+                        } else if (b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Industrial",new Object[0]).getUnformattedComponentText())) {
+                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedComponentText() + b.buildingName;
                             int duration = new Random().nextInt(5000);
                             addGoToTask(b, s, duration, 8000);
-//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedComponentText() + b.buildingName));
                             //装饰
-                        } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Decorative",new Object[0]).getUnformattedText())) {
-                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
+                        } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Decorative",new Object[0]).getUnformattedComponentText())) {
+                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedComponentText() + b.buildingName;
                             int duration = new Random().nextInt(5000);
                             addGoToTask(b, s, duration, 8000);
-//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedComponentText() + b.buildingName));
                             //其他
-                        } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Other",new Object[0]).getUnformattedText())) {
-                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName;
+                        } else if (!b.buildingType.contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Other",new Object[0]).getUnformattedComponentText())) {
+                            String s=new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedComponentText() + b.buildingName;
                             int duration = new Random().nextInt(5000);
                             addGoToTask(b, s, duration, 8000);
-//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedText() + b.buildingName));
+//                            this.addTask(new TaskGoTo(this, (long) (new Random().nextInt(30000) + 5000), b, new TextComponentTranslation("container.sim.folk_data_Visiting",new Object[0]).getUnformattedComponentText() + b.buildingName));
                         }
                         break;
                     }
@@ -2471,9 +2471,9 @@ public class NpcData {
     // 提取添加 TaskGoTo 任务的方法
     private void addGoToTask(Building building, String translationKey, int minDuration, int maxDuration) {
         long duration = (long) (new Random().nextInt(maxDuration - minDuration) + minDuration);
-        String status = new TextComponentTranslation(translationKey, new Object[0]).getUnformattedText();
+        String status = new TextComponentTranslation(translationKey, new Object[0]).getUnformattedComponentText();
         //商业
-        String s=new TextComponentTranslation("container.sim.sim_gui_BC_Commercial", new Object[0]).getUnformattedText();
+        String s=new TextComponentTranslation("container.sim.sim_gui_BC_Commercial", new Object[0]).getUnformattedComponentText();
         if (building.buildingType.contentEquals(s)) {
             status += building.buildingName;
         }
@@ -2883,7 +2883,7 @@ public class NpcData {
         if (this.entity == null) {
             return false;
             //住宅
-        } else if (b.buildingType.toLowerCase().contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedText())) {
+        } else if (b.buildingType.toLowerCase().contentEquals(new TextComponentTranslation("container.sim.sim_gui_BC_Residential",new Object[0]).getUnformattedComponentText())) {
             boolean b1=(float) b.livingXYZ.getDistanceTo(this.pos) < maxDist;
             return b1;
         } else {
@@ -3010,14 +3010,14 @@ public class NpcData {
                 String deathMessage = "";
                 if (cause == DamageSource.STARVE) {
                     //张三 饿死了。他们当时18岁。
-                    deathMessage = this.getName() + new TextComponentTranslation("container.sim.folk_data_death_by_They", new Object[0]).getUnformattedText() + this.age + new TextComponentTranslation("container.sim.folk_data_death_by_years", new Object[0]).getUnformattedText();
+                    deathMessage = this.getName() + new TextComponentTranslation("container.sim.folk_data_death_by_They", new Object[0]).getUnformattedComponentText() + this.age + new TextComponentTranslation("container.sim.folk_data_death_by_years", new Object[0]).getUnformattedComponentText();
                 }
                 if (cause == DamageSource.IN_WALL) {
                     //被活埋
-                    deathMessage = this.getName() + new TextComponentTranslation("container.sim.folk_data_death_by_died", new Object[0]).getUnformattedText() + new TextComponentTranslation("container.sim.folk_data_death_under", new Object[0]).getUnformattedText() + this.age + new TextComponentTranslation("container.sim.folk_data_death_by_years", new Object[0]).getUnformattedText();
+                    deathMessage = this.getName() + new TextComponentTranslation("container.sim.folk_data_death_by_died", new Object[0]).getUnformattedComponentText() + new TextComponentTranslation("container.sim.folk_data_death_under", new Object[0]).getUnformattedComponentText() + this.age + new TextComponentTranslation("container.sim.folk_data_death_by_years", new Object[0]).getUnformattedComponentText();
                 } else {
                     //已经死了
-                    deathMessage = this.getName() + new TextComponentTranslation("container.sim.folk_data_death_by_were", new Object[0]).getUnformattedText() + this.age + new TextComponentTranslation("container.sim.folk_data_death_by_years", new Object[0]).getUnformattedText();
+                    deathMessage = this.getName() + new TextComponentTranslation("container.sim.folk_data_death_by_were", new Object[0]).getUnformattedComponentText() + this.age + new TextComponentTranslation("container.sim.folk_data_death_by_years", new Object[0]).getUnformattedComponentText();
                 }
                 deathMessage += ":" + this.pos.x + "," + this.pos.y + "," + this.pos.z;
                 this.isDead = true;
@@ -3187,7 +3187,7 @@ public class NpcData {
      * @Param []
      **/
     public void clearStatus() {
-        this.status = new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedText();
+        this.status = new TextComponentTranslation("container.sim.folk_data.Wandering",new Object[0]).getUnformattedComponentText();
     }
 
     /**
@@ -3216,94 +3216,94 @@ public class NpcData {
             }
             this.forceMoveToXYZ(v3);
             //面包师
-            if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText())) {
+            if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobBaker(this, v3.toBlockPos(), world);
                 //地形规划师
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobTerrainFormer(this, v3, world);
                 //建筑师
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobBuilder(this, v3,0, world);
                 //屠夫
-            }else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedText())) {
+            }else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobButcher(this, v3.toBlockPos(), world);
                 //食品商
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation26",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation26",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobGrocer(this, v3.toBlockPos(), world);
                 //养牛户
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation12",new Object[0]).getUnformattedText())) {
-                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_cow",new Object[0]).getUnformattedText(), world);
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation12",new Object[0]).getUnformattedComponentText())) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_cow",new Object[0]).getUnformattedComponentText(), world);
                 //养猪户
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation13",new Object[0]).getUnformattedText())) {
-                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_pig",new Object[0]).getUnformattedText(), world);
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation13",new Object[0]).getUnformattedComponentText())) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_pig",new Object[0]).getUnformattedComponentText(), world);
                 //养鸡户
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation14",new Object[0]).getUnformattedText())) {
-                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_chicken",new Object[0]).getUnformattedText(), world);
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation14",new Object[0]).getUnformattedComponentText())) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_chicken",new Object[0]).getUnformattedComponentText(), world);
                 //养羊户
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation28",new Object[0]).getUnformattedText())) {
-                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_sheep",new Object[0]).getUnformattedText(), world);
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation28",new Object[0]).getUnformattedComponentText())) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_sheep",new Object[0]).getUnformattedComponentText(), world);
                 //养兔户
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation29",new Object[0]).getUnformattedText())) {
-                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_rabbit",new Object[0]).getUnformattedText(), world);
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation29",new Object[0]).getUnformattedComponentText())) {
+                this.job = new JobLivestockFarmer(this, v3.toBlockPos(), new TextComponentTranslation("container.sim.job_Livestock_rabbit",new Object[0]).getUnformattedComponentText(), world);
                 //牧羊人
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation8",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation8",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobShepherd(this, v3.toBlockPos(), world);
                 //牛奶农
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation20",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation20",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobDairyFarmer(this, v3.toBlockPos(), world);
                 //伐木工
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation2",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation2",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobLumberjack(this, v3.toBlockPos(), world);
                 //士兵
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation7",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobSoldier(this, v3.toBlockPos(), world);
                 //渔夫
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation18",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation18",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobFisherman(this, v3.toBlockPos(), world);
                 //蛋农
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation3",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation3",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobEggFarmer(this, v3.toBlockPos(), world);
                 //制糖师
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation30",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation30",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobSugar(this, v3.toBlockPos(), world);
                 //板砖工匠
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation25",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation25",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobBrickMaker(this, v3.toBlockPos(), world);
                 //玻璃制造商
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation17",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation17",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobGlassMaker(this, v3.toBlockPos(), world);
                 //建筑商
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation11",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation11",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobBuildersMerchant(this, v3.toBlockPos(), world);
                 //行长
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation31",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation31",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobATM(this, v3.toBlockPos(), world);
                 //杂货商
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation9",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation9",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobMerchant(this, v3.toBlockPos(), world);
                 //插花师
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation32",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation32",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobFlower(this, v3.toBlockPos(), world);
                 //赤脚大夫
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation33",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation33",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobBarefootDoctor(this, v3.toBlockPos(), world);
                 //妇产科医生
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation34",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation34",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobAccoucheur(this, v3.toBlockPos(), world);
                 //汉堡店经理
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation36",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation36",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobBurgers(this, v3.toBlockPos(), world);
                 //奶酪匠
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation21",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation21",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobCheesemaker(this, v3.toBlockPos(), world);
                 //麦当劳
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation35",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation35",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobMcDonald(this, v3.toBlockPos(), world);
                 //酒馆
-            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation37",new Object[0]).getUnformattedText())) {
+            } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation37",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobBartender(this, v3.toBlockPos(), world);
                 //仓库管理员
-            }else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation10",new Object[0]).getUnformattedText())) {
+            }else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation10",new Object[0]).getUnformattedComponentText())) {
                 this.job = new JobCourier(this, v3.toBlockPos(), world);
             }
         } catch (Exception e) {
