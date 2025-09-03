@@ -2,7 +2,7 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
-		maven {
+		/*maven {
             name = "files forge"
             url = "http://files.minecraftforge.net/maven"
         }
@@ -13,7 +13,7 @@ buildscript {
         maven {
             name = "repo"
             url = "https://repo.maven.org/maven2"
-        }
+        }*/
         maven {
             name = "repo1"
             url = "https://repo1.maven.org/maven2"
