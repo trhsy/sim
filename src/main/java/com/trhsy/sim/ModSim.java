@@ -8,4 +8,5 @@ package com.trhsy.sim;
  * @date 2025/9/3 17:25
  */
 public class ModSim {
+
 }
