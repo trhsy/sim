@@ -27,8 +27,12 @@ import java.util.stream.Collectors;
  */
 @Mod("sim")
 public class ModSim {
+    /**
+     * 模组id 指的就是该Mod的唯一标识符
+     **/
+    public static final String MODID = "sim";
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger log = LogManager.getLogger();
 
     public ModSim() {
         // 注册modloading的设置方法
@@ -46,25 +50,25 @@ public class ModSim {
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
-        LOGGER.info("欢迎来到模拟的大都市");
-        LOGGER.info("泥土 BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        log.info("欢迎来到模拟的大都市");
+        log.info("泥土 BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // 做一些只能在客户端上完成的事情
-        LOGGER.info("已获取游戏设置 {}", event.getMinecraftSupplier().get().gameSettings);
+        log.info("已获取游戏设置 {}", event.getMinecraftSupplier().get().gameSettings);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
     {
         // 将IMC分派到另一个模块的示例代码
-        InterModComms.sendTo("sim", "helloworld", () -> { LOGGER.info("Hello world from the TRHSY"); return "Hello world";});
+        InterModComms.sendTo("sim", "helloworld", () -> { log.info("Hello world from the TRHSY"); return "Hello world";});
     }
 
     private void processIMC(final InterModProcessEvent event)
     {
         // 一些示例代码，用于接收和处理来自其他模组的InterModComms
-        LOGGER.info("获取 IMC {}", event.getIMCStream().
+        log.info("获取 IMC {}", event.getIMCStream().
                 map(m->m.getMessageSupplier().get()).
                 collect(Collectors.toList()));
     }
@@ -76,7 +80,7 @@ public class ModSim {
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         // 服务器启动时执行某些操作
-        LOGGER.info("SIM 模拟大都市从服务器启动了");
+        log.info("SIM 模拟大都市从服务器启动了");
     }
 
 
@@ -88,7 +92,7 @@ public class ModSim {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // 在此处注册新块
-            LOGGER.info("HELLO来自注册表块");
+            log.info("HELLO来自注册表块");
         }
     }
 }
