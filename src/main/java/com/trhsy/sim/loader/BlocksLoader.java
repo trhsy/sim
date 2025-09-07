@@ -1,17 +1,15 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
+import com.trhsy.sim.block.BlockCheese;
 import com.trhsy.sim.block.BlockConstructorBox;
 import com.trhsy.sim.group.ModGroup;
-import com.trhsy.sim.group.SimGroup;
-import com.trhsy.sim.items.ItemSimULoader;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.block.Block;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.IForgeRegistry;
 import javax.swing.*;
@@ -22,7 +20,7 @@ public class BlocksLoader {
     // 命名规范：小写+下划线，如 "constructor_box"
     public static final Block CONSTRUCTOR_BOX = new BlockConstructorBox()
             .setRegistryName(ModSim.MODID, "constructor_box"); // 必须设置注册名（模组ID:方块名）
-
+    public static final Block BLOCK_CHEESE = new BlockCheese().setRegistryName(ModSim.MODID,"cheese_block");
     // 2. 方块注册事件：监听 Forge 的 Block 注册事件
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
@@ -30,9 +28,10 @@ public class BlocksLoader {
 
         // 将自定义方块注册到注册表
         registry.register(CONSTRUCTOR_BOX);
-
         // （可选）注册日志，确认注册成功
         ModSim.log.info("已注册方块：{}", CONSTRUCTOR_BOX.getRegistryName());
+        registry.register(BLOCK_CHEESE);
+        ModSim.log.info("已注册方块：{}", BLOCK_CHEESE.getRegistryName());
     }
 
     // 3. 方块物品（BlockItem）注册事件：监听 Forge 的 Item 注册事件
@@ -42,18 +41,26 @@ public class BlocksLoader {
         IForgeRegistry<Item> registry = event.getRegistry(); // 获取物品注册表
 
         // 为 BlockConstructorBox 创建对应的 BlockItem
-        ItemSimULoader itemSimULoader = new ItemSimULoader(
-                new Item.Properties() // 配置 BlockItem 属性（如创造栏分组）
-                        .group(ModGroup.itemGroup) // 加入"建筑方块"创造栏（可替换为自定义栏）
+        ItemBlock constructorBoxItem = new ItemBlock(
+                CONSTRUCTOR_BOX, // 关联已注册的方块
+                new Item.Properties().group(ModGroup.itemGroup) // 加入创造栏
         );
-
         // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
-        itemSimULoader.setRegistryName("simReel");
-
+        constructorBoxItem.setRegistryName(CONSTRUCTOR_BOX.getRegistryName());
         // 将 BlockItem 注册到注册表
-        registry.register(itemSimULoader);
-
+        registry.register(constructorBoxItem);
         // （可选）注册日志，确认 BlockItem 成功
-        ModSim.log.info("已注册方块物品：{}", itemSimULoader.getRegistryName());
+        ModSim.log.info("已注册方块物品：{}", CONSTRUCTOR_BOX.getRegistryName());
+
+        ItemBlock BlockCheeseItem = new ItemBlock(
+                BLOCK_CHEESE, // 关联已注册的方块
+                new Item.Properties().group(ModGroup.itemGroup) // 加入创造栏
+        );
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        BlockCheeseItem.setRegistryName(BLOCK_CHEESE.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(BlockCheeseItem);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", BLOCK_CHEESE.getRegistryName());
     }
 }

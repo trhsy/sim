@@ -2,6 +2,7 @@ package com.trhsy.sim;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -46,6 +47,7 @@ public class ModSim {
 
         // 注册我们感兴趣的服务器和其他游戏活动
         MinecraftForge.EVENT_BUS.register(this);
+
     }
     private void setup(final FMLCommonSetupEvent event)
     {
@@ -94,5 +96,12 @@ public class ModSim {
             // 在此处注册新块
             log.info("HELLO来自注册表块");
         }
+    }
+
+    /**
+     * 创建带modid的资源位置
+     */
+    public static ResourceLocation getResourceLocation(String path) {
+        return new ResourceLocation(MODID, path);
     }
 }

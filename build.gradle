@@ -168,3 +168,6 @@ publishing {
         }
     }
 }
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = "D:\\java\\jdk1.8.0_271\\bin\\javac.exe"

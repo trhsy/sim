@@ -16,6 +16,6 @@ public class SimGroup extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(BlocksLoader.CONSTRUCTOR_BOX);
+        return new ItemStack(BlocksLoader.CONSTRUCTOR_BOX.asItem());
     }
 }

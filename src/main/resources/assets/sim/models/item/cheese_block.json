@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/block_constructor_box",
+  "parent": "sim:block/cheese_block",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

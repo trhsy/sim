@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "sim:blocks/block_constructor_box"
+    "all": "sim:block/cheese_block"
   }
 }
