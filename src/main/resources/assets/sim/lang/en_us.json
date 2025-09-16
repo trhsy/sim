@@ -1,4 +1,5 @@
 {
   "itemGroup.sim":"Simulated City",
-  "block.sim.constructor_box":"constructor box"
+  "block.sim.constructor_box":"constructor box",
+  "block.sim.cheeseBlock":"cheese block"
 }

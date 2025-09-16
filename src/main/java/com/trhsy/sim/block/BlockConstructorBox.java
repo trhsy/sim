@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 public class BlockConstructorBox extends Block {
 
     public BlockConstructorBox() {
-        super(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(0.5F,0.3F));
+        super(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2F,1F));
     }
 
     public boolean isValidPosition(BlockState state, IBlockReader worldIn, BlockPos pos) {

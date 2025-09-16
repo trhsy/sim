@@ -3,8 +3,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "bakerf",
-        "stream": false
+        "name": "sim:bakerf",
+        "stream": true
       }
     ]
   },
@@ -12,8 +12,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "bakerm",
-        "stream": false
+        "name": "sim:bakerm",
+        "stream": true
       }
     ]
   },
@@ -21,8 +21,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "beamdown",
-        "stream": false
+        "name": "sim:beamdown",
+        "stream": true
       }
     ]
   },
@@ -30,8 +30,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "beamdowntwo",
-        "stream": false
+        "name": "sim:beamdowntwo",
+        "stream": true
       }
     ]
   },
@@ -39,8 +39,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "beamf",
-        "stream": false
+        "name": "sim:beamf",
+        "stream": true
       }
     ]
   },
@@ -48,8 +48,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "beamm",
-        "stream": false
+        "name": "sim:beamm",
+        "stream": true
       }
     ]
   },
@@ -57,8 +57,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "birth",
-        "stream": false
+        "name": "sim:birth",
+        "stream": true
       }
     ]
   },
@@ -66,8 +66,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blarga",
-        "stream": false
+        "name": "sim:blarga",
+        "stream": true
       }
     ]
   },
@@ -75,8 +75,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargb",
-        "stream": false
+        "name": "sim:blargb",
+        "stream": true
       }
     ]
   },
@@ -84,8 +84,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargc",
-        "stream": false
+        "name": "sim:blargc",
+        "stream": true
       }
     ]
   },
@@ -93,8 +93,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargd",
-        "stream": false
+        "name": "sim:blargd",
+        "stream": true
       }
     ]
   },
@@ -102,8 +102,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blarge",
-        "stream": false
+        "name": "sim:blarge",
+        "stream": true
       }
     ]
   },
@@ -111,8 +111,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargf",
-        "stream": false
+        "name": "sim:blargf",
+        "stream": true
       }
     ]
   },
@@ -120,8 +120,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargg",
-        "stream": false
+        "name": "sim:blargg",
+        "stream": true
       }
     ]
   },
@@ -129,8 +129,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargh",
-        "stream": false
+        "name": "sim:blargh",
+        "stream": true
       }
     ]
   },
@@ -138,8 +138,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargi",
-        "stream": false
+        "name": "sim:blargi",
+        "stream": true
       }
     ]
   },
@@ -147,8 +147,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargj",
-        "stream": false
+        "name": "sim:blargj",
+        "stream": true
       }
     ]
   },
@@ -156,8 +156,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargk",
-        "stream": false
+        "name": "sim:blargk",
+        "stream": true
       }
     ]
   },
@@ -165,8 +165,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargl",
-        "stream": false
+        "name": "sim:blargl",
+        "stream": true
       }
     ]
   },
@@ -174,8 +174,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargm",
-        "stream": false
+        "name": "sim:blargm",
+        "stream": true
       }
     ]
   },
@@ -183,8 +183,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargn",
-        "stream": false
+        "name": "sim:blargn",
+        "stream": true
       }
     ]
   },
@@ -192,8 +192,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargo",
-        "stream": false
+        "name": "sim:blargo",
+        "stream": true
       }
     ]
   },
@@ -201,8 +201,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargp",
-        "stream": false
+        "name": "sim:blargp",
+        "stream": true
       }
     ]
   },
@@ -210,8 +210,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargq",
-        "stream": false
+        "name": "sim:blargq",
+        "stream": true
       }
     ]
   },
@@ -219,8 +219,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargr",
-        "stream": false
+        "name": "sim:blargr",
+        "stream": true
       }
     ]
   },
@@ -228,8 +228,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargs",
-        "stream": false
+        "name": "sim:blargs",
+        "stream": true
       }
     ]
   },
@@ -237,8 +237,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargt",
-        "stream": false
+        "name": "sim:blargt",
+        "stream": true
       }
     ]
   },
@@ -246,8 +246,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargu",
-        "stream": false
+        "name": "sim:blargu",
+        "stream": true
       }
     ]
   },
@@ -255,8 +255,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargv",
-        "stream": false
+        "name": "sim:blargv",
+        "stream": true
       }
     ]
   },
@@ -264,8 +264,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargw",
-        "stream": false
+        "name": "sim:blargw",
+        "stream": true
       }
     ]
   },
@@ -273,8 +273,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargx",
-        "stream": false
+        "name": "sim:blargx",
+        "stream": true
       }
     ]
   },
@@ -282,8 +282,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargy",
-        "stream": false
+        "name": "sim:blargy",
+        "stream": true
       }
     ]
   },
@@ -291,8 +291,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "blargz",
-        "stream": false
+        "name": "sim:blargz",
+        "stream": true
       }
     ]
   },
@@ -300,8 +300,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerfa",
-        "stream": false
+        "name": "sim:burgerfa",
+        "stream": true
       }
     ]
   },
@@ -309,8 +309,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerfb",
-        "stream": false
+        "name": "sim:burgerfb",
+        "stream": true
       }
     ]
   },
@@ -318,8 +318,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerfc",
-        "stream": false
+        "name": "sim:burgerfc",
+        "stream": true
       }
     ]
   },
@@ -327,8 +327,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerfd",
-        "stream": false
+        "name": "sim:burgerfd",
+        "stream": true
       }
     ]
   },
@@ -336,8 +336,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerfe",
-        "stream": false
+        "name": "sim:burgerfe",
+        "stream": true
       }
     ]
   },
@@ -345,8 +345,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerff",
-        "stream": false
+        "name": "sim:burgerff",
+        "stream": true
       }
     ]
   },
@@ -354,8 +354,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerma",
-        "stream": false
+        "name": "sim:burgerma",
+        "stream": true
       }
     ]
   },
@@ -363,8 +363,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgermb",
-        "stream": false
+        "name": "sim:burgermb",
+        "stream": true
       }
     ]
   },
@@ -372,8 +372,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgermc",
-        "stream": false
+        "name": "sim:burgermc",
+        "stream": true
       }
     ]
   },
@@ -381,8 +381,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgermd",
-        "stream": false
+        "name": "sim:burgermd",
+        "stream": true
       }
     ]
   },
@@ -390,8 +390,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgerme",
-        "stream": false
+        "name": "sim:burgerme",
+        "stream": true
       }
     ]
   },
@@ -399,8 +399,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "burgermf",
-        "stream": false
+        "name": "sim:burgermf",
+        "stream": true
       }
     ]
   },
@@ -408,8 +408,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "cash",
-        "stream": false
+        "name": "sim:cash",
+        "stream": true
       }
     ]
   },
@@ -417,8 +417,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "cashshort",
-        "stream": false
+        "name": "sim:cashshort",
+        "stream": true
       }
     ]
   },
@@ -426,8 +426,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "cheesemachine",
-        "stream": false
+        "name": "sim:cheesemachine",
+        "stream": true
       }
     ]
   },
@@ -435,8 +435,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "computer",
-        "stream": false
+        "name": "sim:computer",
+        "stream": true
       }
     ]
   },
@@ -444,8 +444,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "construction",
-        "stream": false
+        "name": "sim:construction",
+        "stream": true
       }
     ]
   },
@@ -453,50 +453,53 @@
     "category": "master",
     "sounds": [
       {
-        "name": "sim_u_building_constructor_activated",
-        "stream": false
-      }
-    ]
-  },"sim_u_kraft_ddd_mining_constructor_activated": {
-  "category": "master",
-  "sounds": [
-    {
-      "name": "sim_u_kraft_ddd_mining_constructor_activated",
-      "stream": false
-    }
-  ]
-},"sim_u_ddd": {
-  "category": "master",
-  "sounds": [
-    {
-      "name": "sim_u_ddd",
-      "stream": false
-    }
-  ]
-},"sim_u_kraft_ddd_farming_constructor_activated": {
-  "category": "master",
-  "sounds": [
-    {
-      "name": "sim_u_kraft_ddd_farming_constructor_activated",
-      "stream": false
-    }
-  ]
-},
-  "CoughF": {
-    "category": "master",
-    "sounds": [
-      {
-        "name": "CoughF",
-        "stream": false
+        "name": "sim:sim_u_building_constructor_activated",
+        "stream": true
       }
     ]
   },
-  "CoughM": {
+  "sim_u_kraft_ddd_mining_constructor_activated": {
     "category": "master",
     "sounds": [
       {
-        "name": "CoughM",
-        "stream": false
+        "name": "sim:sim_u_kraft_ddd_mining_constructor_activated",
+        "stream": true
+      }
+    ]
+  },
+  "sim_u_ddd": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "sim:sim_u_ddd",
+        "stream": true
+      }
+    ]
+  },
+  "sim_u_kraft_ddd_farming_constructor_activated": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "sim:sim_u_kraft_ddd_farming_constructor_activated",
+        "stream": true
+      }
+    ]
+  },
+  "coughf": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "sim:coughf",
+        "stream": true
+      }
+    ]
+  },
+  "coughm": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "sim:coughm",
+        "stream": true
       }
     ]
   },
@@ -504,8 +507,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "cspeaka",
-        "stream": false
+        "name": "sim:cspeaka",
+        "stream": true
       }
     ]
   },
@@ -513,8 +516,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "cspeakb",
-        "stream": false
+        "name": "sim:cspeakb",
+        "stream": true
       }
     ]
   },
@@ -522,8 +525,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "cspeakc",
-        "stream": false
+        "name": "sim:cspeakc",
+        "stream": true
       }
     ]
   },
@@ -531,8 +534,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "dayfone",
-        "stream": false
+        "name": "sim:dayfone",
+        "stream": true
       }
     ]
   },
@@ -540,8 +543,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "dayfthree",
-        "stream": false
+        "name": "sim:dayfthree",
+        "stream": true
       }
     ]
   },
@@ -549,8 +552,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "dayftwo",
-        "stream": false
+        "name": "sim:dayftwo",
+        "stream": true
       }
     ]
   },
@@ -558,8 +561,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "daymone",
-        "stream": false
+        "name": "sim:daymone",
+        "stream": true
       }
     ]
   },
@@ -567,8 +570,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "daymthree",
-        "stream": false
+        "name": "sim:daymthree",
+        "stream": true
       }
     ]
   },
@@ -576,8 +579,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "daymtwo",
-        "stream": false
+        "name": "sim:daymtwo",
+        "stream": true
       }
     ]
   },
@@ -585,8 +588,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "feight",
-        "stream": false
+        "name": "sim:feight",
+        "stream": true
       }
     ]
   },
@@ -594,8 +597,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fnine",
-        "stream": false
+        "name": "sim:fnine",
+        "stream": true
       }
     ]
   },
@@ -603,8 +606,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fone",
-        "stream": false
+        "name": "sim:fone",
+        "stream": true
       }
     ]
   },
@@ -612,8 +615,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fseven",
-        "stream": false
+        "name": "sim:fseven",
+        "stream": true
       }
     ]
   },
@@ -621,8 +624,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeaka",
-        "stream": false
+        "name": "sim:fspeaka",
+        "stream": true
       }
     ]
   },
@@ -630,8 +633,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakb",
-        "stream": false
+        "name": "sim:fspeakb",
+        "stream": true
       }
     ]
   },
@@ -639,8 +642,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakc",
-        "stream": false
+        "name": "sim:fspeakc",
+        "stream": true
       }
     ]
   },
@@ -648,8 +651,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakd",
-        "stream": false
+        "name": "sim:fspeakd",
+        "stream": true
       }
     ]
   },
@@ -657,8 +660,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeake",
-        "stream": false
+        "name": "sim:fspeake",
+        "stream": true
       }
     ]
   },
@@ -666,8 +669,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakf",
-        "stream": false
+        "name": "sim:fspeakf",
+        "stream": true
       }
     ]
   },
@@ -675,8 +678,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakg",
-        "stream": false
+        "name": "sim:fspeakg",
+        "stream": true
       }
     ]
   },
@@ -684,8 +687,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakh",
-        "stream": false
+        "name": "sim:fspeakh",
+        "stream": true
       }
     ]
   },
@@ -693,8 +696,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeaki",
-        "stream": false
+        "name": "sim:fspeaki",
+        "stream": true
       }
     ]
   },
@@ -702,8 +705,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakj",
-        "stream": false
+        "name": "sim:fspeakj",
+        "stream": true
       }
     ]
   },
@@ -711,8 +714,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakk",
-        "stream": false
+        "name": "sim:fspeakk",
+        "stream": true
       }
     ]
   },
@@ -720,8 +723,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakl",
-        "stream": false
+        "name": "sim:fspeakl",
+        "stream": true
       }
     ]
   },
@@ -729,8 +732,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakm",
-        "stream": false
+        "name": "sim:fspeakm",
+        "stream": true
       }
     ]
   },
@@ -738,8 +741,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakn",
-        "stream": false
+        "name": "sim:fspeakn",
+        "stream": true
       }
     ]
   },
@@ -747,8 +750,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeako",
-        "stream": false
+        "name": "sim:fspeako",
+        "stream": true
       }
     ]
   },
@@ -756,8 +759,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakp",
-        "stream": false
+        "name": "sim:fspeakp",
+        "stream": true
       }
     ]
   },
@@ -765,8 +768,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakq",
-        "stream": false
+        "name": "sim:fspeakq",
+        "stream": true
       }
     ]
   },
@@ -774,8 +777,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeakr",
-        "stream": false
+        "name": "sim:fspeakr",
+        "stream": true
       }
     ]
   },
@@ -783,8 +786,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fspeaks",
-        "stream": false
+        "name": "sim:fspeaks",
+        "stream": true
       }
     ]
   },
@@ -792,8 +795,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "ftwo",
-        "stream": false
+        "name": "sim:ftwo",
+        "stream": true
       }
     ]
   },
@@ -801,8 +804,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fthree",
-        "stream": false
+        "name": "sim:fthree",
+        "stream": true
       }
     ]
   },
@@ -810,8 +813,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "fwxbad",
-        "stream": false
+        "name": "sim:fwxbad",
+        "stream": true
       }
     ]
   },
@@ -819,8 +822,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "helloc",
-        "stream": false
+        "name": "sim:helloc",
+        "stream": true
       }
     ]
   },
@@ -828,8 +831,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "hellof",
-        "stream": false
+        "name": "sim:hellof",
+        "stream": true
       }
     ]
   },
@@ -837,26 +840,26 @@
     "category": "master",
     "sounds": [
       {
-        "name": "hellom",
-        "stream": false
+        "name": "sim:hellom",
+        "stream": true
       }
     ]
   },
-  "LaughF": {
+  "laughf": {
     "category": "master",
     "sounds": [
       {
-        "name": "LaughF",
-        "stream": false
+        "name": "sim:laughf",
+        "stream": true
       }
     ]
   },
-  "LaughM": {
+  "laughm": {
     "category": "master",
     "sounds": [
       {
-        "name": "LaughM",
-        "stream": false
+        "name": "sim:laughm",
+        "stream": true
       }
     ]
   },
@@ -864,8 +867,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "lightone",
-        "stream": false
+        "name": "sim:lightone",
+        "stream": true
       }
     ]
   },
@@ -873,8 +876,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "meight",
-        "stream": false
+        "name": "sim:meight",
+        "stream": true
       }
     ]
   },
@@ -882,8 +885,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "merchm",
-        "stream": false
+        "name": "sim:merchm",
+        "stream": true
       }
     ]
   },
@@ -891,8 +894,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mfive",
-        "stream": false
+        "name": "sim:mfive",
+        "stream": true
       }
     ]
   },
@@ -900,8 +903,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mfour",
-        "stream": false
+        "name": "sim:mfour",
+        "stream": true
       }
     ]
   },
@@ -909,8 +912,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mnine",
-        "stream": false
+        "name": "sim:mnine",
+        "stream": true
       }
     ]
   },
@@ -918,8 +921,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mone",
-        "stream": false
+        "name": "sim:mone",
+        "stream": true
       }
     ]
   },
@@ -927,8 +930,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mseven",
-        "stream": false
+        "name": "sim:mseven",
+        "stream": true
       }
     ]
   },
@@ -936,8 +939,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "msix",
-        "stream": false
+        "name": "sim:msix",
+        "stream": true
       }
     ]
   },
@@ -945,8 +948,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeaka",
-        "stream": false
+        "name": "sim:mspeaka",
+        "stream": true
       }
     ]
   },
@@ -954,8 +957,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakb",
-        "stream": false
+        "name": "sim:mspeakb",
+        "stream": true
       }
     ]
   },
@@ -963,8 +966,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakc",
-        "stream": false
+        "name": "sim:mspeakc",
+        "stream": true
       }
     ]
   },
@@ -972,8 +975,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakd",
-        "stream": false
+        "name": "sim:mspeakd",
+        "stream": true
       }
     ]
   },
@@ -981,8 +984,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeake",
-        "stream": false
+        "name": "sim:mspeake",
+        "stream": true
       }
     ]
   },
@@ -990,8 +993,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakf",
-        "stream": false
+        "name": "sim:mspeakf",
+        "stream": true
       }
     ]
   },
@@ -999,8 +1002,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakg",
-        "stream": false
+        "name": "sim:mspeakg",
+        "stream": true
       }
     ]
   },
@@ -1008,8 +1011,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakh",
-        "stream": false
+        "name": "sim:mspeakh",
+        "stream": true
       }
     ]
   },
@@ -1017,8 +1020,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeaki",
-        "stream": false
+        "name": "sim:mspeaki",
+        "stream": true
       }
     ]
   },
@@ -1026,8 +1029,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakj",
-        "stream": false
+        "name": "sim:mspeakj",
+        "stream": true
       }
     ]
   },
@@ -1035,8 +1038,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakk",
-        "stream": false
+        "name": "sim:mspeakk",
+        "stream": true
       }
     ]
   },
@@ -1044,8 +1047,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakl",
-        "stream": false
+        "name": "sim:mspeakl",
+        "stream": true
       }
     ]
   },
@@ -1053,8 +1056,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakm",
-        "stream": false
+        "name": "sim:mspeakm",
+        "stream": true
       }
     ]
   },
@@ -1062,8 +1065,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakn",
-        "stream": false
+        "name": "sim:mspeakn",
+        "stream": true
       }
     ]
   },
@@ -1071,8 +1074,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeako",
-        "stream": false
+        "name": "sim:mspeako",
+        "stream": true
       }
     ]
   },
@@ -1080,8 +1083,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakp",
-        "stream": false
+        "name": "sim:mspeakp",
+        "stream": true
       }
     ]
   },
@@ -1089,8 +1092,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakq",
-        "stream": false
+        "name": "sim:mspeakq",
+        "stream": true
       }
     ]
   },
@@ -1098,8 +1101,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeakr",
-        "stream": false
+        "name": "sim:mspeakr",
+        "stream": true
       }
     ]
   },
@@ -1107,8 +1110,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mspeaks",
-        "stream": false
+        "name": "sim:mspeaks",
+        "stream": true
       }
     ]
   },
@@ -1116,8 +1119,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mthree",
-        "stream": false
+        "name": "sim:mthree",
+        "stream": true
       }
     ]
   },
@@ -1125,8 +1128,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mtwo",
-        "stream": false
+        "name": "sim:mtwo",
+        "stream": true
       }
     ]
   },
@@ -1134,8 +1137,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "mwxbad",
-        "stream": false
+        "name": "sim:mwxbad",
+        "stream": true
       }
     ]
   },
@@ -1143,8 +1146,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "nightfone",
-        "stream": false
+        "name": "sim:nightfone",
+        "stream": true
       }
     ]
   },
@@ -1152,8 +1155,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "nightfthree",
-        "stream": false
+        "name": "sim:nightfthree",
+        "stream": true
       }
     ]
   },
@@ -1161,8 +1164,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "nightftwo",
-        "stream": false
+        "name": "sim:nightftwo",
+        "stream": true
       }
     ]
   },
@@ -1170,8 +1173,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "nightmone",
-        "stream": false
+        "name": "sim:nightmone",
+        "stream": true
       }
     ]
   },
@@ -1179,8 +1182,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "nightmthree",
-        "stream": false
+        "name": "sim:nightmthree",
+        "stream": true
       }
     ]
   },
@@ -1188,26 +1191,26 @@
     "category": "master",
     "sounds": [
       {
-        "name": "nightmtwo",
-        "stream": false
+        "name": "sim:nightmtwo",
+        "stream": true
       }
     ]
   },
-  "OuchF": {
+  "ouchf": {
     "category": "master",
     "sounds": [
       {
-        "name": "OuchF",
-        "stream": false
+        "name": "sim:ouchf",
+        "stream": true
       }
     ]
   },
-  "OuchM": {
+  "ouchm": {
     "category": "master",
     "sounds": [
       {
-        "name": "OuchM",
-        "stream": false
+        "name": "sim:ouchm",
+        "stream": true
       }
     ]
   },
@@ -1215,8 +1218,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "power_down",
-        "stream": false
+        "name": "sim:power_down",
+        "stream": true
       }
     ]
   },
@@ -1224,8 +1227,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "pregnant",
-        "stream": false
+        "name": "sim:pregnant",
+        "stream": true
       }
     ]
   },
@@ -1233,8 +1236,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "im_read_y",
-        "stream": false
+        "name": "sim:im_read_y",
+        "stream": true
       }
     ]
   },
@@ -1242,8 +1245,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "im_read_m",
-        "stream": false
+        "name": "sim:im_read_m",
+        "stream": true
       }
     ]
   },
@@ -1251,8 +1254,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "rooster",
-        "stream": false
+        "name": "sim:rooster",
+        "stream": true
       }
     ]
   },
@@ -1260,26 +1263,26 @@
     "category": "master",
     "sounds": [
       {
-        "name": "shears",
-        "stream": false
+        "name": "sim:shears",
+        "stream": true
       }
     ]
   },
-  "SneezeF": {
+  "sneezef": {
     "category": "master",
     "sounds": [
       {
-        "name": "SneezeF",
-        "stream": false
+        "name": "sim:sneezef",
+        "stream": true
       }
     ]
   },
-  "SneezeM": {
+  "sneezem": {
     "category": "master",
     "sounds": [
       {
-        "name": "SneezeM",
-        "stream": false
+        "name": "sim:sneezem",
+        "stream": true
       }
     ]
   },
@@ -1287,8 +1290,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "welcome",
-        "stream": false
+        "name": "sim:welcome",
+        "stream": true
       }
     ]
   },
@@ -1296,8 +1299,8 @@
     "category": "master",
     "sounds": [
       {
-        "name": "windmill",
-        "stream": false
+        "name": "sim:windmill",
+        "stream": true
       }
     ]
   }
