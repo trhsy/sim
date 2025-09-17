@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "sim:block/ore/copper_block_ore"
+  }
+}

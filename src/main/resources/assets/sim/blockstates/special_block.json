@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "sim:block/special_block"
+    }
+  }
+}

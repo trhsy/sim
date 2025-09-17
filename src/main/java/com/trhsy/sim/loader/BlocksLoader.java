@@ -128,5 +128,134 @@ public class BlocksLoader {
         registry.register(BlockCheeseItem);
         // （可选）注册日志，确认 BlockItem 成功
         ModSim.log.info("已注册方块物品：{}", BLOCK_CHEESE.getRegistryName());
+
+        ItemBlock COMPOSITE_BRICK_ITEM = new ItemBlock(COMPOSITE_BRICK, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        COMPOSITE_BRICK_ITEM.setRegistryName(COMPOSITE_BRICK.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(COMPOSITE_BRICK_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", COMPOSITE_BRICK.getRegistryName());
+
+        ItemBlock CONTROL_BOX_ITEM = new ItemBlock(CONTROL_BOX, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        CONTROL_BOX_ITEM.setRegistryName(CONTROL_BOX.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(CONTROL_BOX_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", CONTROL_BOX.getRegistryName());
+
+        ItemBlock COPPER_BLOCK_ITEM = new ItemBlock(COPPER_BLOCK, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        COPPER_BLOCK_ITEM.setRegistryName(COPPER_BLOCK.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(COPPER_BLOCK_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", COPPER_BLOCK.getRegistryName());
+
+        ItemBlock COPPER_BLOCK_ORE_ITEM = new ItemBlock(COPPER_BLOCK_ORE, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        COPPER_BLOCK_ORE_ITEM.setRegistryName(COPPER_BLOCK_ORE.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(COPPER_BLOCK_ORE_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", COPPER_BLOCK_ORE.getRegistryName());
+
+        ItemBlock FARMING_BOX_ITEM = new ItemBlock(FARMING_BOX, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        FARMING_BOX_ITEM.setRegistryName(FARMING_BOX.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(FARMING_BOX_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", FARMING_BOX.getRegistryName());
+
+        ItemBlock FLUID_WING_MILK_ITEM = new ItemBlock(FLUID_WING_MILK, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        FLUID_WING_MILK_ITEM.setRegistryName(FLUID_WING_MILK.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(FLUID_WING_MILK_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", FLUID_WING_MILK.getRegistryName());
+
+        ItemBlock LIGHT_BOX_ITEM = new ItemBlock(LIGHT_BOX, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_ITEM.setRegistryName(LIGHT_BOX.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX.getRegistryName());
+
+        ItemBlock LIVING_BLOCK_ITEM = new ItemBlock(LIVING_BLOCK, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIVING_BLOCK_ITEM.setRegistryName(LIVING_BLOCK.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIVING_BLOCK_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIVING_BLOCK.getRegistryName());
+
+        ItemBlock MARKER_BAR_ITEM = new ItemBlock(MARKER_BAR, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        MARKER_BAR_ITEM.setRegistryName(MARKER_BAR.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(MARKER_BAR_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", MARKER_BAR.getRegistryName());
+
+        ItemBlock FLUID_MILK_ITEM = new ItemBlock(FLUID_MILK, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        FLUID_MILK_ITEM.setRegistryName(FLUID_MILK.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(FLUID_MILK_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", FLUID_MILK.getRegistryName());
+
+        ItemBlock MINING_BOX_ITEM = new ItemBlock(MINING_BOX, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        MINING_BOX_ITEM.setRegistryName(MINING_BOX.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(MINING_BOX_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", MINING_BOX.getRegistryName());
+
+        ItemBlock PATH_BOX_ITEM = new ItemBlock(PATH_BOX, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        PATH_BOX_ITEM.setRegistryName(PATH_BOX.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(PATH_BOX_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", PATH_BOX.getRegistryName());
+
+        ItemBlock SPECIAL_BLOCK_ITEM = new ItemBlock(SPECIAL_BLOCK, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        SPECIAL_BLOCK_ITEM.setRegistryName(SPECIAL_BLOCK.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(SPECIAL_BLOCK_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", SPECIAL_BLOCK.getRegistryName());
+
+        ItemBlock TIN_BLOCK_ITEM = new ItemBlock(TIN_BLOCK, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        TIN_BLOCK_ITEM.setRegistryName(TIN_BLOCK.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(TIN_BLOCK_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", TIN_BLOCK.getRegistryName());
+
+        ItemBlock TIN_BLOCK_ORE_ITEM = new ItemBlock(TIN_BLOCK_ORE, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        TIN_BLOCK_ORE_ITEM.setRegistryName(TIN_BLOCK_ORE.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(TIN_BLOCK_ORE_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", TIN_BLOCK_ORE.getRegistryName());
+
+        ItemBlock WINDMILL_ITEM = new ItemBlock(windmill, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        WINDMILL_ITEM.setRegistryName(windmill.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(WINDMILL_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", windmill.getRegistryName());
+
     }
 }

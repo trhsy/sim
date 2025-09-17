@@ -1,0 +1,53 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_all",
+    "textures": {
+      "all": "sim:block/light/light_box_white"
+    }
+  },
+  "variants": {
+    "color": {
+      "white": {
+        "textures": {
+          "all": "sim:block/light/light_box_white"
+        }
+      },
+      "red": {
+        "textures": {
+          "all": "sim:block/light/light_box_red"
+        }
+      },
+      "orange": {
+        "textures": {
+          "all": "sim:block/light/light_box_orange"
+        }
+      },
+      "yellow": {
+        "textures": {
+          "all": "sim:block/light/light_box_yellow"
+        }
+      },
+      "green": {
+        "textures": {
+          "all": "sim:block/light/light_box_green"
+        }
+      },
+      "blue": {
+        "textures": {
+          "all": "sim:block/light/light_box_blue"
+        }
+      },
+      "purple": {
+        "textures": {
+          "all": "sim:block/light/light_box_purple"
+        }
+      },
+      "rainbow": {
+        "textures": {
+          "all": "sim:block/light/light_box_rainbow"
+        }
+      }
+    }
+  }
+}
