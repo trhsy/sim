@@ -1,8 +1,7 @@
 package com.trhsy.sim.loader;
 
 import com.trhsy.sim.ModSim;
-import com.trhsy.sim.block.BlockCheese;
-import com.trhsy.sim.block.BlockConstructorBox;
+import com.trhsy.sim.block.*;
 import com.trhsy.sim.group.ModGroup;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.block.Block;
@@ -18,9 +17,42 @@ import javax.swing.*;
 public class BlocksLoader {
     // 1. 定义方块实例（静态常量，全局唯一）
     // 命名规范：小写+下划线，如 "constructor_box"
-    public static final Block CONSTRUCTOR_BOX = new BlockConstructorBox()
-            .setRegistryName(ModSim.MODID, "constructor_box"); // 必须设置注册名（模组ID:方块名）
+    //建筑箱
+    public static final Block CONSTRUCTOR_BOX = new BlockConstructorBox().setRegistryName(ModSim.MODID, "constructor_box"); // 必须设置注册名（模组ID:方块名）
+    //奶酪
     public static final Block BLOCK_CHEESE = new BlockCheese().setRegistryName(ModSim.MODID,"cheese_block");
+    //复合砖
+    public static final Block COMPOSITE_BRICK = new BlockCompositeBrick().setRegistryName(ModSim.MODID,"composite_brick");
+    //控制箱
+    public static final Block CONTROL_BOX = new BlockControlBox().setRegistryName(ModSim.MODID,"control_box");
+    //铜块
+    public static final Block COPPER_BLOCK = new BlockCopper().setRegistryName(ModSim.MODID,"copper_block");
+    //铜矿
+    public static final Block COPPER_BLOCK_ORE = new BlockCopperOre().setRegistryName(ModSim.MODID,"copper_block_ore");
+    //农田箱
+    public static final Block FARMING_BOX = new BlockFarmingBox().setRegistryName(ModSim.MODID,"farming_box");
+    //流体牛奶块
+    public static final Block FLUID_WING_MILK = new BlockFlowingMilk().setRegistryName(ModSim.MODID,"fluid_wing_milk");
+    //灯箱
+    public static final Block LIGHT_BOX = new BlockLightBox().setRegistryName(ModSim.MODID,"light_box");
+    //地毯
+    public static final Block LIVING_BLOCK = new BlockLiving().setRegistryName(ModSim.MODID,"living_block");
+    //标记棒
+    public static final Block MARKER_BAR = new BlockMarker().setRegistryName(ModSim.MODID,"marker_bar");
+    //静态牛奶块
+    public static final Block FLUID_MILK = new BlockMilk().setRegistryName(ModSim.MODID,"fluid_milk");
+    //采矿箱
+    public static final Block MINING_BOX = new BlockMiningBox().setRegistryName(ModSim.MODID,"mining_box");
+    //路径箱
+    public static final Block PATH_BOX = new BlockPathBox().setRegistryName(ModSim.MODID,"path_box");
+    //特除空气方块
+    public static final Block SPECIAL_BLOCK = new BlockSpecial().setRegistryName(ModSim.MODID,"special_block");
+    //锡块
+    public static final Block TIN_BLOCK = new BlockTin().setRegistryName(ModSim.MODID,"tin_block");
+    //锡矿
+    public static final Block TIN_BLOCK_ORE = new BlockTinOre().setRegistryName(ModSim.MODID,"tin_block_ore");
+    //风车
+    public static final Block windmill = new BlockWindmill().setRegistryName(ModSim.MODID,"windmill");
     // 2. 方块注册事件：监听 Forge 的 Block 注册事件
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
@@ -32,6 +64,40 @@ public class BlocksLoader {
         ModSim.log.info("已注册方块：{}", CONSTRUCTOR_BOX.getRegistryName());
         registry.register(BLOCK_CHEESE);
         ModSim.log.info("已注册方块：{}", BLOCK_CHEESE.getRegistryName());
+
+        registry.register(COMPOSITE_BRICK);
+        ModSim.log.info("已注册方块：{}", COMPOSITE_BRICK.getRegistryName());
+        registry.register(CONTROL_BOX);
+        ModSim.log.info("已注册方块：{}", CONTROL_BOX.getRegistryName());
+        registry.register(COPPER_BLOCK);
+        ModSim.log.info("已注册方块：{}", COPPER_BLOCK.getRegistryName());
+        registry.register(COPPER_BLOCK_ORE);
+        ModSim.log.info("已注册方块：{}", COPPER_BLOCK_ORE.getRegistryName());
+        registry.register(FARMING_BOX);
+        ModSim.log.info("已注册方块：{}", FARMING_BOX.getRegistryName());
+        registry.register(FLUID_WING_MILK);
+        ModSim.log.info("已注册方块：{}", FLUID_WING_MILK.getRegistryName());
+        registry.register(LIGHT_BOX);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX.getRegistryName());
+        registry.register(LIVING_BLOCK);
+        ModSim.log.info("已注册方块：{}", LIVING_BLOCK.getRegistryName());
+        registry.register(MARKER_BAR);
+        ModSim.log.info("已注册方块：{}", MARKER_BAR.getRegistryName());
+        registry.register(FLUID_MILK);
+        ModSim.log.info("已注册方块：{}", FLUID_MILK.getRegistryName());
+        registry.register(MINING_BOX);
+        ModSim.log.info("已注册方块：{}", MINING_BOX.getRegistryName());
+        registry.register(PATH_BOX);
+        ModSim.log.info("已注册方块：{}", PATH_BOX.getRegistryName());
+        registry.register(SPECIAL_BLOCK);
+        ModSim.log.info("已注册方块：{}", SPECIAL_BLOCK.getRegistryName());
+        registry.register(TIN_BLOCK);
+        ModSim.log.info("已注册方块：{}", TIN_BLOCK.getRegistryName());
+        registry.register(TIN_BLOCK_ORE);
+        ModSim.log.info("已注册方块：{}", TIN_BLOCK_ORE.getRegistryName());
+        registry.register(windmill);
+        ModSim.log.info("已注册方块：{}", windmill.getRegistryName());
+
     }
 
     // 3. 方块物品（BlockItem）注册事件：监听 Forge 的 Item 注册事件

@@ -14,6 +14,14 @@ public class BlockControlBox extends Block {
     public BlockControlBox() {
         //controlBox
         super(Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(10.0F,1.0F));
-
+        //用于设定走在方块上的响声。
+//        this.setSoundType(SoundType.WOOD);
+        //方块硬度
+//        this.setHardness(10.0F);
+        //爆炸
+//        this.setResistance(1.0F); // 爆炸抗性调整为 1.0F（原 1 可能过低）
+//        this.setUnlocalizedName("controlBox");
+//        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumControlBox.TOP));
+//        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
 }
