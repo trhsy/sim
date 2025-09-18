@@ -1,5 +1,20 @@
 {
   "itemGroup.sim":"Simulated City",
   "block.sim.constructor_box":"constructor box",
-  "block.sim.cheeseBlock":"cheese block"
+  "block.sim.cheese_block":"cheese block",
+  "block.sim.composite_brick":"composite brick",
+  "block.sim.control_box":"control box",
+  "block.sim.copper_block":"Copper Block",
+  "block.sim.copper_block_ore":"Copper Ore",
+  "block.sim.farming_box":"farming box",
+  "block.sim.fluid_wing_milk":"fluid Milk",
+  "block.sim.light_box":"light block",
+  "block.sim.living_block":"carpet",
+  "block.sim.marker_bar":"marker bar",
+  "block.sim.fluid_milk":"fluid Milk",
+  "block.sim.mining_box":"mining box",
+  "block.sim.path_box":"path box",
+  "block.sim.tin_block":"Tin Block",
+  "block.sim.tin_block_ore":"Tin Ore",
+  "block.sim.windmill":"Windmill"
 }

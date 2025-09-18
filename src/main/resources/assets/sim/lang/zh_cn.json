@@ -1,5 +1,20 @@
 {
   "itemGroup.sim":"模拟城市",
   "block.sim.constructor_box":"建筑箱",
-  "block.sim.cheeseBlock":"奶酪块"
+  "block.sim.cheese_block":"奶酪块",
+  "block.sim.composite_brick":"复合砖",
+  "block.sim.control_box":"控制箱",
+  "block.sim.copper_block":"铜块",
+  "block.sim.copper_block_ore":"铜矿",
+  "block.sim.farming_box":"养殖箱",
+  "block.sim.fluid_wing_milk":"流体牛奶",
+  "block.sim.light_box":"灯箱",
+  "block.sim.living_block":"地毯",
+  "block.sim.marker_bar":"标记棒",
+  "block.sim.fluid_milk":"静态牛奶",
+  "block.sim.mining_box":"采矿箱",
+  "block.sim.path_box":"路径箱",
+  "block.sim.tin_block":"锡块",
+  "block.sim.tin_block_ore":"锡矿",
+  "block.sim.windmill":"风车"
 }

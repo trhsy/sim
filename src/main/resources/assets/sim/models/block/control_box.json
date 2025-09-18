@@ -1,5 +1,5 @@
 {
-  "parent": "block/orientable",
+  "parent": "block/cube_all",
   "textures": {
     "top": "sim:block/control/control_box",
     "front": "sim:block/control/control_box",

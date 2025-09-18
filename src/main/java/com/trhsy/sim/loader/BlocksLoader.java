@@ -25,6 +25,9 @@ public class BlocksLoader {
     public static final Block COMPOSITE_BRICK = new BlockCompositeBrick().setRegistryName(ModSim.MODID,"composite_brick");
     //控制箱
     public static final Block CONTROL_BOX = new BlockControlBox().setRegistryName(ModSim.MODID,"control_box");
+//    public static RegistryObject<Block> CONTROL_BOX = BLOCKS.register("control_box", () -> {
+//        return new BlockControlBox();
+//    });
     //铜块
     public static final Block COPPER_BLOCK = new BlockCopper().setRegistryName(ModSim.MODID,"copper_block");
     //铜矿

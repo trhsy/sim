@@ -3,6 +3,9 @@ package com.trhsy.sim.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
 
 /**
  * @Author: TRHSY
@@ -11,9 +14,12 @@ import net.minecraft.block.material.Material;
  * @Version: 1.0
  */
 public class BlockControlBox extends Block {
+//    public static final EnumProperty<EnumControlBox> TYPE = EnumProperty.create("type", EnumControlBox.class);
+    private static IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
     public BlockControlBox() {
         //controlBox
         super(Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(10.0F,1.0F));
+        this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, 0));
         //用于设定走在方块上的响声。
 //        this.setSoundType(SoundType.WOOD);
         //方块硬度
@@ -23,5 +29,9 @@ public class BlockControlBox extends Block {
 //        this.setUnlocalizedName("controlBox");
 //        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumControlBox.TOP));
 //        this.setCreativeTab(CreativeTabsLoader.tabSimU);
+    }
+    protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+        builder.add(TYPE);
+        super.fillStateContainer(builder);
     }
 }
