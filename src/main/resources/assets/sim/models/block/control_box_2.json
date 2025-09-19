@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "sim:block/mining_box"
+    "all": "sim:block/control/control_box_other"
   }
 }

@@ -15,7 +15,7 @@ import net.minecraft.state.StateContainer;
  */
 public class BlockControlBox extends Block {
 //    public static final EnumProperty<EnumControlBox> TYPE = EnumProperty.create("type", EnumControlBox.class);
-    private static IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
+    private static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
     public BlockControlBox() {
         //controlBox
         super(Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(10.0F,1.0F));
@@ -30,8 +30,9 @@ public class BlockControlBox extends Block {
 //        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumControlBox.TOP));
 //        this.setCreativeTab(CreativeTabsLoader.tabSimU);
     }
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
         builder.add(TYPE);
-        super.fillStateContainer(builder);
+//        super.fillStateContainer(builder);
     }
 }

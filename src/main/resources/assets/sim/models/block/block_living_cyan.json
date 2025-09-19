@@ -1,5 +1,5 @@
 {
-  "parent": "block/carpet",
+  "parent": "minecraft:block/cube_all",
   "textures": {
     "particle": "sim:blocks/living/block_living_cyan",
     "wool": "sim:blocks/living/block_living_cyan"

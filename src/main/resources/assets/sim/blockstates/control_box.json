@@ -1,44 +1,15 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "transform":"forge:default-block",
-    "model": "sim:block/control_box",
-    "textures": {
-      "top": "sim:block/control/control_box",
-      "front": "sim:block/control/control_box",
-      "side": "sim:block/control/control_box",
-      "bottom": "sim:block/control/control_box_side"
-    }
-  },
   "variants": {
-    "type": {
-      "0": {
-        "model": "sim:block/control_box",
-        "textures": {
-          "top": "sim:block/control/control_box",
-          "front": "sim:block/control/control_box",
-          "side": "sim:block/control/control_box",
-          "bottom": "sim:block/control/control_box_side"
-        }
+    "type=0": {
+        "model": "sim:control_box_0"
+
       },
-      "1": {
-        "model": "sim:block/control_box",
-        "textures": {
-          "top": "sim:block/control/control_box_atm",
-          "front": "sim:block/control/control_box_atm",
-          "side": "sim:block/control/control_box_atm",
-          "bottom": "sim:block/control/control_box_side"
-        }
+      "type=1": {
+        "model": "sim:control_box_1"
+
       },
-      "2": {
-        "model": "sim:block/control_box",
-        "textures": {
-          "top": "sim:block/control/control_box_other",
-          "front": "sim:block/control/control_box_other",
-          "side": "sim:block/control/control_box_other",
-          "bottom": "sim:block/control/control_box_side"
-        }
+      "type=2": {
+        "model": "sim:control_box_2"
       }
     }
   }
-}

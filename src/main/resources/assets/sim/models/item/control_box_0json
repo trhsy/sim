@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/block_control_box_atm",
+  "parent": "sim:block/control_box_0",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

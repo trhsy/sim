@@ -1,9 +1,11 @@
 {
-  "parent": "block/cube_all",
+  "parent": "minecraft:block/cube_all",
   "textures": {
     "top": "sim:block/control/control_box",
-    "front": "sim:block/control/control_box",
-    "side": "sim:block/control/control_box",
-    "bottom": "sim:block/control/control_box_side"
+    "bottom": "sim:block/control/control_box_side",
+    "north": "sim:block/control/control_box",
+    "south": "sim:block/control/control_box",
+    "west": "sim:block/control/control_box",
+    "east": "sim:block/control/control_box"
   }
 }
