@@ -1,7 +1,6 @@
 package com.trhsy.sim.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
 
 /**
@@ -11,7 +10,7 @@ import net.minecraft.block.material.Material;
  * @Description: 特除空气方块
  * @date 2025/9/17 14:33
  */
-public class BlockSpecial extends BlockAir {
+public class BlockSpecial extends Block {
     public BlockSpecial() {
         super(Block.Properties.create(Material.AIR).doesNotBlockMovement());
 //        super(Material.air);

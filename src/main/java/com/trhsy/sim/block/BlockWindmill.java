@@ -1,11 +1,10 @@
 package com.trhsy.sim.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
@@ -17,7 +16,7 @@ import javax.annotation.Nullable;
  * @Description:
  * @date 2025/9/17 14:45
  */
-public class BlockWindmill extends BlockContainer {
+public class BlockWindmill extends ContainerBlock {
     public BlockWindmill() {
         super(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1F, 5F));
         /*super(Material.WOOD);

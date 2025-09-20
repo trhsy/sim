@@ -3,9 +3,7 @@ package com.trhsy.sim.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
 
 /**
  * @Author: TRHSY
@@ -29,10 +27,5 @@ public class BlockControlBox extends Block {
 //        this.setUnlocalizedName("controlBox");
 //        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumControlBox.TOP));
 //        this.setCreativeTab(CreativeTabsLoader.tabSimU);
-    }
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-        builder.add(TYPE);
-//        super.fillStateContainer(builder);
     }
 }

@@ -1,7 +1,6 @@
 package com.trhsy.sim;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -53,7 +52,6 @@ public class ModSim {
     {
         // some preinit code
         log.info("欢迎来到模拟的大都市");
-        log.info("泥土 BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

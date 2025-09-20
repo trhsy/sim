@@ -5,7 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -28,7 +28,7 @@ public class BlockCompositeBrick extends Block {
 
     public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag advanced) {
         // 从 lang 文件读取翻译（格式：block.modid.composite_brick.tooltip）
-        String fs_1 = new TextComponentTranslation("block.sim.composite_brick.tooltip", new Object[0]).getUnformattedComponentText();
+        String fs_1 = new TranslationTextComponent("block.sim.composite_brick.tooltip", new Object[0]).getUnformattedComponentText();
         tooltip.add(fs_1);
     }
 }

@@ -5,7 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -36,7 +36,7 @@ public class BlockCheese extends Block {
     public void addInformation(@Nonnull ItemStack stack, @Nullable World player,
                                @Nonnull List<String> tooltip, @Nonnull ITooltipFlag advanced) {
         // 从lang/en_us.json中读取提示文本（示例："block.sim.cheeseBlock.tooltip"="奶酪方块：易融化，需冷藏保存"）
-        String fs_1 = new TextComponentTranslation("block.sim.cheeseBlock.tooltip", new Object[0]).getUnformattedComponentText();
+        String fs_1 = new TranslationTextComponent("block.sim.cheeseBlock.tooltip", new Object[0]).getUnformattedComponentText();
         tooltip.add(fs_1);
 
         // 可选：添加状态提示（如是否被融化）
