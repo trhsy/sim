@@ -1,15 +1,15 @@
 {
   "variants": {
     "type=0": {
-        "model": "sim:control_box_0"
+        "model": "sim:block/control_box_0"
 
       },
       "type=1": {
-        "model": "sim:control_box_1"
+        "model": "sim:block/control_box_1"
 
       },
       "type=2": {
-        "model": "sim:control_box_2"
+        "model": "sim:block/control_box_2"
       }
     }
   }
