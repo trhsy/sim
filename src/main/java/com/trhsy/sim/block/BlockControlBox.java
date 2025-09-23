@@ -1,11 +1,14 @@
 package com.trhsy.sim.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.EnumFacing;
 
 /**
  * @Author: TRHSY
@@ -15,11 +18,12 @@ import net.minecraft.state.StateContainer;
  */
 public class BlockControlBox extends Block {
 //    public static final EnumProperty<EnumControlBox> TYPE = EnumProperty.create("type", EnumControlBox.class);
-    private static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
+//    private static final IntegerProperty TYPE = IntegerProperty.create("type", 0, 2);
+public static final DirectionProperty FACING = BlockDirectional.FACING;
     public BlockControlBox() {
         //controlBox
         super(Block.Properties.create(Material.ROCK).sound(SoundType.STONE).hardnessAndResistance(10.0F,1.0F));
-        this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, 0));
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
         //用于设定走在方块上的响声。
 //        this.setSoundType(SoundType.WOOD);
         //方块硬度
@@ -32,7 +36,7 @@ public class BlockControlBox extends Block {
     }
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-        builder.add(TYPE);
+        builder.add(FACING);
 //        super.fillStateContainer(builder);
     }
 }

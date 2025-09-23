@@ -3,6 +3,7 @@ package com.trhsy.sim.loader;
 import com.trhsy.sim.ModSim;
 import com.trhsy.sim.block.*;
 import com.trhsy.sim.group.ModGroup;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.block.Block;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,9 +26,9 @@ public class BlocksLoader {
     public static final Block COMPOSITE_BRICK = new BlockCompositeBrick().setRegistryName(ModSim.MODID,"composite_brick");
     //控制箱
     public static final Block CONTROL_BOX = new BlockControlBox().setRegistryName(ModSim.MODID,"control_box");
-//    public static RegistryObject<Block> CONTROL_BOX = BLOCKS.register("control_box", () -> {
-//        return new BlockControlBox();
-//    });
+    public static final Block CONTROL_BOX_ATM = new BlockControlBox().setRegistryName(ModSim.MODID,"control_box_atm");
+    public static final Block CONTROL_BOX_OTHER = new BlockControlBox().setRegistryName(ModSim.MODID,"control_box_other");
+
     //铜块
     public static final Block COPPER_BLOCK = new BlockCopper().setRegistryName(ModSim.MODID,"copper_block");
     //铜矿
@@ -36,10 +37,16 @@ public class BlocksLoader {
     public static final Block FARMING_BOX = new BlockFarmingBox().setRegistryName(ModSim.MODID,"farming_box");
     //流体牛奶块
 //    public static final Block FLUID_WING_MILK = new BlockFlowingMilk().setRegistryName(ModSim.MODID,"fluid_wing_milk");
-    //灯箱
-    public static final Block LIGHT_BOX = new BlockLightBox().setRegistryName(ModSim.MODID,"light_box");
-    //地毯
-//    public static final Block LIVING_BLOCK = new BlockLiving().setRegistryName(ModSim.MODID,"living_block");
+    //灯箱 白
+    public static final Block LIGHT_BOX = new BlockLightBox(EnumDyeColor.WHITE).setRegistryName(ModSim.MODID,"light_box");
+    public static final Block LIGHT_BOX_BLUE = new BlockLightBox(EnumDyeColor.BLUE).setRegistryName(ModSim.MODID,"light_box_blue");
+    public static final Block LIGHT_BOX_GREEN = new BlockLightBox(EnumDyeColor.GREEN).setRegistryName(ModSim.MODID,"light_box_green");
+    public static final Block LIGHT_BOX_ORANGE = new BlockLightBox(EnumDyeColor.ORANGE).setRegistryName(ModSim.MODID,"light_box_orange");
+    public static final Block LIGHT_BOX_PURPLE = new BlockLightBox(EnumDyeColor.PURPLE).setRegistryName(ModSim.MODID,"light_box_purple");
+    public static final Block LIGHT_BOX_RED = new BlockLightBox(EnumDyeColor.RED).setRegistryName(ModSim.MODID,"light_box_red");
+    public static final Block LIGHT_BOX_RAINBOW = new BlockLightBox(EnumDyeColor.WHITE).setRegistryName(ModSim.MODID,"light_box_rainbow");
+    //地毯 白
+    public static final Block LIVING_BLOCK = new BlockLiving(EnumDyeColor.WHITE).setRegistryName(ModSim.MODID,"living_block");
     //标记棒
     public static final Block MARKER_BAR = new BlockMarker().setRegistryName(ModSim.MODID,"marker_bar");
     //静态牛奶块
@@ -72,6 +79,10 @@ public class BlocksLoader {
         ModSim.log.info("已注册方块：{}", COMPOSITE_BRICK.getRegistryName());
         registry.register(CONTROL_BOX);
         ModSim.log.info("已注册方块：{}", CONTROL_BOX.getRegistryName());
+        registry.register(CONTROL_BOX_ATM);
+        ModSim.log.info("已注册方块：{}", CONTROL_BOX_ATM.getRegistryName());
+        registry.register(CONTROL_BOX_OTHER);
+        ModSim.log.info("已注册方块：{}", CONTROL_BOX_OTHER.getRegistryName());
         registry.register(COPPER_BLOCK);
         ModSim.log.info("已注册方块：{}", COPPER_BLOCK.getRegistryName());
         registry.register(COPPER_BLOCK_ORE);
@@ -82,6 +93,18 @@ public class BlocksLoader {
 //        ModSim.log.info("已注册方块：{}", FLUID_WING_MILK.getRegistryName());
         registry.register(LIGHT_BOX);
         ModSim.log.info("已注册方块：{}", LIGHT_BOX.getRegistryName());
+        registry.register(LIGHT_BOX_BLUE);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_BLUE.getRegistryName());
+        registry.register(LIGHT_BOX_GREEN);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_GREEN.getRegistryName());
+        registry.register(LIGHT_BOX_ORANGE);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_ORANGE.getRegistryName());
+        registry.register(LIGHT_BOX_PURPLE);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_PURPLE.getRegistryName());
+        registry.register(LIGHT_BOX_RED);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_RED.getRegistryName());
+        registry.register(LIGHT_BOX_RAINBOW);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_RAINBOW.getRegistryName());
 //        registry.register(LIVING_BLOCK);
 //        ModSim.log.info("已注册方块：{}", LIVING_BLOCK.getRegistryName());
         registry.register(MARKER_BAR);
@@ -148,6 +171,23 @@ public class BlocksLoader {
         // （可选）注册日志，确认 BlockItem 成功
         ModSim.log.info("已注册方块物品：{}", CONTROL_BOX.getRegistryName());
 
+        ItemBlock CONTROL_BOX_ATM_ITEM = new ItemBlock(CONTROL_BOX_ATM, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        CONTROL_BOX_ATM_ITEM.setRegistryName(CONTROL_BOX_ATM.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(CONTROL_BOX_ATM_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", CONTROL_BOX_ATM.getRegistryName());
+
+        ItemBlock CONTROL_BOX_OTHER_ITEM = new ItemBlock(CONTROL_BOX_OTHER, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        CONTROL_BOX_OTHER_ITEM.setRegistryName(CONTROL_BOX_OTHER.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(CONTROL_BOX_OTHER_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", CONTROL_BOX_OTHER.getRegistryName());
+
+
         ItemBlock COPPER_BLOCK_ITEM = new ItemBlock(COPPER_BLOCK, new Item.Properties().group(ModGroup.itemGroup));
         // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
         COPPER_BLOCK_ITEM.setRegistryName(COPPER_BLOCK.getRegistryName());
@@ -180,6 +220,7 @@ public class BlocksLoader {
         // （可选）注册日志，确认 BlockItem 成功
         ModSim.log.info("已注册方块物品：{}", FLUID_WING_MILK.getRegistryName());*/
 
+
         ItemBlock LIGHT_BOX_ITEM = new ItemBlock(LIGHT_BOX, new Item.Properties().group(ModGroup.itemGroup));
         // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
         LIGHT_BOX_ITEM.setRegistryName(LIGHT_BOX.getRegistryName());
@@ -188,6 +229,56 @@ public class BlocksLoader {
         // （可选）注册日志，确认 BlockItem 成功
         ModSim.log.info("已注册方块物品：{}", LIGHT_BOX.getRegistryName());
 
+        ItemBlock LIGHT_BOX_BLUE_ITEM = new ItemBlock(LIGHT_BOX_BLUE, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_BLUE_ITEM.setRegistryName(LIGHT_BOX_BLUE.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_BLUE_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_BLUE.getRegistryName());
+
+        ItemBlock LIGHT_BOX_GREEN_ITEM = new ItemBlock(LIGHT_BOX_GREEN, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_GREEN_ITEM.setRegistryName(LIGHT_BOX_GREEN.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_GREEN_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_GREEN.getRegistryName());
+
+        ItemBlock LIGHT_BOX_ORANGE_ITEM = new ItemBlock(LIGHT_BOX_ORANGE, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_ORANGE_ITEM.setRegistryName(LIGHT_BOX_ORANGE.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_ORANGE_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_ORANGE.getRegistryName());
+
+        ItemBlock LIGHT_BOX_PURPLE_ITEM = new ItemBlock(LIGHT_BOX_PURPLE, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_PURPLE_ITEM.setRegistryName(LIGHT_BOX_PURPLE.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_PURPLE_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_PURPLE.getRegistryName());
+
+        ItemBlock LIGHT_BOX_RED_ITEM = new ItemBlock(LIGHT_BOX_RED, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_RED_ITEM.setRegistryName(LIGHT_BOX_RED.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_RED_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_RED.getRegistryName());
+
+        ItemBlock LIGHT_BOX_RAINBOW_ITEM = new ItemBlock(LIGHT_BOX_RAINBOW, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_RAINBOW_ITEM.setRegistryName(LIGHT_BOX_RAINBOW.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_RAINBOW_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_RAINBOW.getRegistryName());
+
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX.getRegistryName());
         /*ItemBlock LIVING_BLOCK_ITEM = new ItemBlock(LIVING_BLOCK, new Item.Properties().group(ModGroup.itemGroup));
         // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
         LIVING_BLOCK_ITEM.setRegistryName(LIVING_BLOCK.getRegistryName());

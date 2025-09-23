@@ -3,6 +3,8 @@ package com.trhsy.sim.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.math.shapes.VoxelShape;
 
 /**
  * @Author: TRHSY
@@ -11,8 +13,10 @@ import net.minecraft.block.material.Material;
  * @Version: 1.0
  */
 public class BlockLightBox extends Block {
-    public BlockLightBox(){
-        super(Block.Properties.create(Material.WATER).sound(SoundType.WOOD).hardnessAndResistance(200F,3F));
+
+    private final EnumDyeColor color;
+    public BlockLightBox(EnumDyeColor color){
+        super(Block.Properties.create(Material.WATER).sound(SoundType.WOOD).hardnessAndResistance(200F,3F).lightValue(20));
         /*super(Material.WOOD,COLOR,EnumLightColour.class);
         this.setLightLevel(3F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);
@@ -22,5 +26,9 @@ public class BlockLightBox extends Block {
         this.setUnlocalizedName("lightBox");
         this.setTickRandomly(true);
         this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumLightColour.WHITE));*/
+        this.color = color;
+    }
+    public EnumDyeColor getColor() {
+        return this.color;
     }
 }

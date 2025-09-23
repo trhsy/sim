@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "sim:block/light_box_red" }
+  }
+}

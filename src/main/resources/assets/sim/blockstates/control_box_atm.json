@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-        "model": "sim:block/control_box"
+        "model": "sim:block/control_box_atm"
       }
     }
   }
