@@ -16,7 +16,7 @@ public class BlockLightBox extends Block {
 
     private final EnumDyeColor color;
     public BlockLightBox(EnumDyeColor color){
-        super(Block.Properties.create(Material.WATER).sound(SoundType.WOOD).hardnessAndResistance(200F,3F).lightValue(20));
+        super(Block.Properties.create(Material.WATER).sound(SoundType.WOOD).hardnessAndResistance(200F,3F).lightValue(15));
         /*super(Material.WOOD,COLOR,EnumLightColour.class);
         this.setLightLevel(3F);
         this.setCreativeTab(CreativeTabsLoader.tabSimU);

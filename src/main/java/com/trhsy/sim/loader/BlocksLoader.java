@@ -38,7 +38,8 @@ public class BlocksLoader {
     //流体牛奶块
 //    public static final Block FLUID_WING_MILK = new BlockFlowingMilk().setRegistryName(ModSim.MODID,"fluid_wing_milk");
     //灯箱 白
-    public static final Block LIGHT_BOX = new BlockLightBox(EnumDyeColor.WHITE).setRegistryName(ModSim.MODID,"light_box");
+    public static final Block LIGHT_BOX_WHITE = new BlockLightBox(EnumDyeColor.WHITE).setRegistryName(ModSim.MODID,"light_box_white");
+    public static final Block LIGHT_BOX_YELLOW = new BlockLightBox(EnumDyeColor.YELLOW).setRegistryName(ModSim.MODID,"light_box_yellow");
     public static final Block LIGHT_BOX_BLUE = new BlockLightBox(EnumDyeColor.BLUE).setRegistryName(ModSim.MODID,"light_box_blue");
     public static final Block LIGHT_BOX_GREEN = new BlockLightBox(EnumDyeColor.GREEN).setRegistryName(ModSim.MODID,"light_box_green");
     public static final Block LIGHT_BOX_ORANGE = new BlockLightBox(EnumDyeColor.ORANGE).setRegistryName(ModSim.MODID,"light_box_orange");
@@ -91,8 +92,10 @@ public class BlocksLoader {
         ModSim.log.info("已注册方块：{}", FARMING_BOX.getRegistryName());
 //        registry.register(FLUID_WING_MILK);
 //        ModSim.log.info("已注册方块：{}", FLUID_WING_MILK.getRegistryName());
-        registry.register(LIGHT_BOX);
-        ModSim.log.info("已注册方块：{}", LIGHT_BOX.getRegistryName());
+        registry.register(LIGHT_BOX_WHITE);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_WHITE.getRegistryName());
+        registry.register(LIGHT_BOX_YELLOW);
+        ModSim.log.info("已注册方块：{}", LIGHT_BOX_YELLOW.getRegistryName());
         registry.register(LIGHT_BOX_BLUE);
         ModSim.log.info("已注册方块：{}", LIGHT_BOX_BLUE.getRegistryName());
         registry.register(LIGHT_BOX_GREEN);
@@ -221,14 +224,21 @@ public class BlocksLoader {
         ModSim.log.info("已注册方块物品：{}", FLUID_WING_MILK.getRegistryName());*/
 
 
-        ItemBlock LIGHT_BOX_ITEM = new ItemBlock(LIGHT_BOX, new Item.Properties().group(ModGroup.itemGroup));
+        ItemBlock LIGHT_BOX_WHITE_ITEM = new ItemBlock(LIGHT_BOX_WHITE, new Item.Properties().group(ModGroup.itemGroup));
         // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
-        LIGHT_BOX_ITEM.setRegistryName(LIGHT_BOX.getRegistryName());
+        LIGHT_BOX_WHITE_ITEM.setRegistryName(LIGHT_BOX_WHITE.getRegistryName());
         // 将 BlockItem 注册到注册表
-        registry.register(LIGHT_BOX_ITEM);
+        registry.register(LIGHT_BOX_WHITE_ITEM);
         // （可选）注册日志，确认 BlockItem 成功
-        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX.getRegistryName());
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_WHITE.getRegistryName());
 
+        ItemBlock LIGHT_BOX_YELLOW_ITEM = new ItemBlock(LIGHT_BOX_YELLOW, new Item.Properties().group(ModGroup.itemGroup));
+        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
+        LIGHT_BOX_YELLOW_ITEM.setRegistryName(LIGHT_BOX_YELLOW.getRegistryName());
+        // 将 BlockItem 注册到注册表
+        registry.register(LIGHT_BOX_YELLOW_ITEM);
+        // （可选）注册日志，确认 BlockItem 成功
+        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_YELLOW.getRegistryName());
         ItemBlock LIGHT_BOX_BLUE_ITEM = new ItemBlock(LIGHT_BOX_BLUE, new Item.Properties().group(ModGroup.itemGroup));
         // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
         LIGHT_BOX_BLUE_ITEM.setRegistryName(LIGHT_BOX_BLUE.getRegistryName());
@@ -277,15 +287,6 @@ public class BlocksLoader {
         // （可选）注册日志，确认 BlockItem 成功
         ModSim.log.info("已注册方块物品：{}", LIGHT_BOX_RAINBOW.getRegistryName());
 
-        // （可选）注册日志，确认 BlockItem 成功
-        ModSim.log.info("已注册方块物品：{}", LIGHT_BOX.getRegistryName());
-        /*ItemBlock LIVING_BLOCK_ITEM = new ItemBlock(LIVING_BLOCK, new Item.Properties().group(ModGroup.itemGroup));
-        // BlockItem 的注册名必须与方块一致（否则会出现模型异常）
-        LIVING_BLOCK_ITEM.setRegistryName(LIVING_BLOCK.getRegistryName());
-        // 将 BlockItem 注册到注册表
-        registry.register(LIVING_BLOCK_ITEM);
-        // （可选）注册日志，确认 BlockItem 成功
-        ModSim.log.info("已注册方块物品：{}", LIVING_BLOCK.getRegistryName());*/
 
         ItemBlock MARKER_BAR_ITEM = new ItemBlock(MARKER_BAR, new Item.Properties().group(ModGroup.itemGroup));
         // BlockItem 的注册名必须与方块一致（否则会出现模型异常）

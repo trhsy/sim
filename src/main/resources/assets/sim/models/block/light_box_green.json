@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "sim:block/light/block_light_rainbow"
+    "all": "sim:block/light/light_box_green"
   }
 }

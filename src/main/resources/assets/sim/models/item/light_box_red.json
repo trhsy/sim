@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/block_light_red",
+  "parent": "sim:block/light_box_red",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],
