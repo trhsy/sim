@@ -6,6 +6,9 @@
       "custom": {
         "fluid": "milks"
       }
+    },
+    "normal": {
+      "model": "sim:block_milk"
     }
   }
 }

@@ -2045,7 +2045,36 @@ public class NpcData {
                 this.stayPut = false;
             }
             //工作为空 不应该工作 实体不为空
+
+            // 优化后的主逻辑
             if ((this.job == null || !this.shouldWork()) && this.entity != null) {
+                // 任务队列处理
+                if (this.tasks.size() > 0) {
+                    if (this.currentTask == null) {
+                        this.currentTask = (Task) this.tasks.remove(0); // 从队列移除
+                        this.currentTask.begin();
+                    } else {
+                        this.currentTask.update();
+
+                        // 夜晚特殊处理
+                        if (!ModSimLoader.isDayTime(this.world)) {
+                            interruptCurrentTasks(); // 强制中断所有非优先任务（核心！）
+                            handleNightLogic();
+                        }
+                    }
+                }
+                // 任务队列为空时的处理
+                else {
+                    if (ModSimLoader.isDayTime(this.world)) {
+                        this.pickRandomTask(); // 白天随机任务
+                    } else {
+                        interruptCurrentTasks(); // 强制中断所有非优先任务（核心！）
+                        handleNightLogic(); // 夜晚回家/睡觉
+                    }
+                }
+            }
+           /* if ((this.job == null || !this.shouldWork()) && this.entity != null) {
+
                 //任务不为空
                 if (this.tasks.size()>0) {
                     //最近任务不为空
@@ -2122,7 +2151,7 @@ public class NpcData {
                         this.addTask(new TaskSleep(this, -1L, new TextComponentTranslation("container.sim.folk_data.Sleeping",new Object[0]).getUnformattedText()));
                     }
                 }
-            }
+            }*/
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
 
@@ -2130,7 +2159,59 @@ public class NpcData {
             e.printStackTrace();
         }
     }
+    // 添加任务唯一性检查方法
+    private boolean hasTaskOfType(Class<? extends Task> taskClass) {
+        if (this.currentTask != null && taskClass.isInstance(this.currentTask)) {
+            return true;
+        }
+        for (Object task : this.tasks) {
+            if (taskClass.isInstance(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    // 封装夜晚逻辑
+    private void handleNightLogic() {
+        String fs_n1 = new TextComponentTranslation("container.sim.folk_data.Sleeping").getUnformattedText();
+        String fs_n2 = new TextComponentTranslation("container.sim.folk_data_Going_home").getUnformattedText();
 
+        // 优先级1：已在家 -> 睡觉
+        if (this.home != null && this.isAtBuilding(this.home)) {
+            if (!hasTaskOfType(TaskSleep.class)) {
+                this.addTask(new TaskSleep(this, -1L, fs_n1));
+            }
+        }
+        // 优先级2：有家但不在家 -> 回家
+        else if (this.home != null) {
+            if (!hasTaskOfType(TaskGoTo.class)) {
+                TaskGoTo task = new TaskGoTo(this, -1L, this.home, fs_n2);
+                this.addTask(task);
+            }
+        }
+        // 优先级3：无家可归 -> 直接睡觉
+        else {
+            if (!hasTaskOfType(TaskSleep.class)) {
+                this.addTask(new TaskSleep(this, -1L, fs_n1));
+            }
+        }
+    }
+    /** 强制终止当前任务（若非优先任务）并清空队列 */
+    private void interruptCurrentTasks() {
+        // 1. 终止当前任务（若不是回家/睡觉）
+        if (this.currentTask != null) {
+            String fs_n1 = new TextComponentTranslation("container.sim.folk_data.Sleeping").getUnformattedText();
+            String fs_n2 = new TextComponentTranslation("container.sim.folk_data_Going_home").getUnformattedText();
+            String currentStatus = this.currentTask.getStatusText();
+            // 若当前任务不是“睡觉”或“回家”，则强制完成（终止）
+            if (currentStatus == null || (!currentStatus.equals(fs_n1) && !currentStatus.equals(fs_n2))) {
+                this.currentTask.onTaskComplete(); // 终止当前任务
+                this.currentTask = null; // 清空当前任务引用
+            }
+        }
+        // 2. 清空任务队列（丢弃所有未执行任务）
+//        this.tasks.clear();
+    }
     /**
      * @return boolean
      * @Author fan

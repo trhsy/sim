@@ -40,7 +40,7 @@ public class BlockMilk extends BlockFluidClassic {
             // 禁用统计信息
             this.disableStats();
             // 设置创造模式标签
-            this.setCreativeTab(CreativeTabsLoader.tabSimU);
+//            this.setCreativeTab(CreativeTabsLoader.tabSimU);
         }catch (Exception e) {
             // 记录异常信息，方便调试
             FMLLog.log.error("Failed to initialize BlockMilk: {}", e.getMessage());
