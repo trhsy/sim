@@ -88,11 +88,11 @@ public class BlockMiningBox extends Block {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand , EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
 //        SoundEvent soundEvent=new SoundEvent(new ResourceLocation(ModSim.MODID + ":sim_u_ddd"));
-        SoundEvent sim_u_ddd = SoundRegistry.SIM_U_DDD;
-        if (sim_u_ddd == null || sim_u_ddd.getRegistryName() == null) {
-            ModSimLoader.log.error("播放失败：sim:sim_u_ddd 声音事件未注册");
+        SoundEvent computer = SoundRegistry.COMPUTER;
+        if (computer == null || computer.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:computer 声音事件未注册");
         } else {
-            worldIn.playSound(playerIn, pos, sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            worldIn.playSound(playerIn, pos, computer, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
         if(!worldIn.isRemote){
             V3 vPos = V3.fromBlockPos(pos);

@@ -82,11 +82,11 @@ public class BlockConstructorBox extends Block {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         //在给定块位置的中心为播放器播放指定的声音 constructor activated 控制箱激活
-        SoundEvent sim_u_ddd = SoundRegistry.SIM_U_DDD;
-        if (sim_u_ddd == null || sim_u_ddd.getRegistryName() == null) {
-            ModSimLoader.log.error("播放失败：sim:sim_u_ddd 声音事件未注册");
+        SoundEvent computer = SoundRegistry.COMPUTER;
+        if (computer == null || computer.getRegistryName() == null) {
+            ModSimLoader.log.error("播放失败：sim:computer 声音事件未注册");
         } else {
-            worldIn.playSound( pos.getX(),pos.getY(), pos.getZ(), sim_u_ddd, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
+            worldIn.playSound( pos.getX(),pos.getY(), pos.getZ(), computer, SoundCategory.BLOCKS, 1.0F, 1.0F,false);}
         int buildDirection = 0;
 
         if (!worldIn.isRemote) {
@@ -163,14 +163,14 @@ public class BlockConstructorBox extends Block {
         }
         // 通过缓存的 NPC 数据快速查找关联 NPC（优化：线性搜索 → Map 缓存）
         NpcData targetNpc = findArchitectNpc(pos);
-        /*
-        for (NpcData fd : ModSimLoader.folks) {
-            if (fd.job != null && fd.job.workPlace.equals(new V3(pos))) {
-                fd.fire();
+        // 解雇关联的建筑师NPC（使用距离判断，与findArchitectNpc保持一致）
+        if (targetNpc != null && targetNpc.job != null) {
+            V3 npcWorkPos = targetNpc.job.workPlace;
+            V3 blockPos3D = V3.fromBlockPos(pos);
+            double distanceSq = npcWorkPos.distanceSq(blockPos3D);
+            if (distanceSq <= 1.25) { // 允许 0.5 格误差，与findArchitectNpc一致
+                targetNpc.fire();
             }
-        }*/
-        if (targetNpc != null && targetNpc.job != null && targetNpc.job.workPlace.equals(V3.fromBlockPos(pos))) {
-            targetNpc.fire();
         }
         //预览位置
         ModSimClientLoader.previewPos1 = null;
