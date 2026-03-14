@@ -138,7 +138,6 @@ public class JobTaskCollectItems extends JobTask {
                 }if (colItem == Items.BREAD) {
                     this.addDestination( new TextComponentTranslation("container.sim.Vocation6",new Object[0]).getUnformattedText());
                 }
-
             }
 
             if (this.destinations.size() < 1) {
@@ -174,6 +173,15 @@ public class JobTaskCollectItems extends JobTask {
                 }
             }
 
+        }
+        if(this.destinations.size()==0){
+            String s1="";
+            for (int i = 0; i < collectionItems.size(); i++) {
+                ItemStack itemStack = collectionItems.get(i);
+                s1+=itemStack.getDisplayName()+",";
+            }
+            String s2=new TextComponentTranslation("container.sim.job_coll_items",new Object[0]).getUnformattedText();
+            ModSimLoader.sendChat(this.job.jobName+":["+s1+"]"+s2);
         }
     }
 

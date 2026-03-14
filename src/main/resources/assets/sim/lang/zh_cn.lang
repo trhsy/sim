@@ -1295,3 +1295,5 @@ container.sim.folk_data_a_baby_day=因无医疗设施难产致死(建议修建�
 container.sim.job.cheese_maker.Extracting1=缺少牛奶块，无法制作奶酪
 container.sim.job.cheese_maker.Extracting2=缺少奶酪放置位，无法制作奶酪
 container.sim.items_drink=啤酒：带来轻微速度提升
+
+container.sim.job_coll_items=无法获取原料

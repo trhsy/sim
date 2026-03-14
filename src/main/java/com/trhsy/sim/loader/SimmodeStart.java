@@ -126,16 +126,6 @@ public class SimmodeStart {
                 ModSimLoader.log.info(hasLoadedWorld + "sim世界尚已加载");
             } else {
                 ModSimLoader.log.info(hasLoadedWorld + "世界尚已加载");
-                ModSimLoader.log.info(hasLoadedWorld + "清除旧的世界数据");
-                ModSimLoader.folks.clear();
-                ModSimLoader.farms.clear();
-                ModSimLoader.mines.clear();
-                ModSimLoader.buildings.clear();
-                ModSimLoader.dayOfWeek = 0;
-                ModSimLoader.gameDay = 0;
-                ModSimLoader.gamemode = 999;
-                ModSimLoader.money = 10.0F;
-                ModSimLoader.sim_is_running = false;
                 newDay = true;
                 timeSinceLastClientUpdate = 0L;
                 File[] buildingSaves;
@@ -260,7 +250,7 @@ public class SimmodeStart {
      */
     public static void simModSave(World world) {
         if (world != null) {
-            if (hasLoadedWorld) {
+            if (hasLoadedWorld&&ModSimLoader.sim_is_running) {
                 //配置文件保存
 //                ModSimLoader.log.info("时间数据保存，准备保存模组信息");
                 ModSimLoader.saveStates();
@@ -404,10 +394,15 @@ public class SimmodeStart {
 
         long startTime = System.currentTimeMillis();
         if (world != null) {
-            if (startTime - timeSinceLastClientUpdates > 5000L || ModSimLoader.sim_is_running) {
+            if (startTime - timeSinceLastClientUpdates > 15000L ) {
+                if(!hasLoadedWorld&&!ModSimLoader.sim_is_running){
+                    simModLoad(world);
+                    ModSimLoader.sim_is_running=true;
+
+                }
                 //当前世界有玩家
-                if (world.playerEntities.size() > 0) {
-                    ModSimLoader.sim_is_running = true;
+                if (world.playerEntities.size() > 0&&ModSimLoader.sim_is_running) {
+
                     //实时更新人的状态
                     for (NpcData f : ModSimLoader.folks) {
                         f.onUpdate();

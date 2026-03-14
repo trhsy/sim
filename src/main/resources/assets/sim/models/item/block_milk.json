@@ -1,5 +1,5 @@
 {
-  "parent": "sim:block/milk",
+  "parent": "sim:block/block_milk",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

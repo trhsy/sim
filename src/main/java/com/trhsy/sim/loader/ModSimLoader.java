@@ -492,22 +492,29 @@ public class ModSimLoader {
      **/
     public static List<FarmBox> getClosestFarm(final V3 pos, String fType) {
         List<FarmBox> fs = new CopyOnWriteArrayList<FarmBox>();
-        for (FarmBox f : farms) {
-            if (f.farmType.toString().equals(fType) && f.employee != null) {
-                fs.add(f);
+        for (int i = 0; i < farms.size(); i++) {
+            FarmBox f=farms.get(i);
+            UUID ID=f.ID;
+            FarmBox f1=new FarmBox(ID);
+            if (f1.farmType.toString().equals(fType) && f1.employee != null) {
+                fs.add(f1);
+
             }
+            farms.remove(i);
+            farms.add(f1);
         }
-        Collections.sort(fs, new Comparator<FarmBox>() {
-            @Override
-            public int compare(FarmBox f1, FarmBox f2) {
-                if (f1.loc.getDistanceTo(pos) > f2.loc.getDistanceTo(pos)) {
-                    return 1;
-                } else {
-                    return f1.loc.getDistanceTo(pos) < f2.loc.getDistanceTo(pos) ? -1 : 0;
-                }
-            }
-        });
-        return (List) (fs.size() > 3 ? fs.subList(0, 2) : fs);
+        return fs;
+//        Collections.sort(fs, new Comparator<FarmBox>() {
+//            @Override
+//            public int compare(FarmBox f1, FarmBox f2) {
+//                if (f1.loc.getDistanceTo(pos) > f2.loc.getDistanceTo(pos)) {
+//                    return 1;
+//                } else {
+//                    return f1.loc.getDistanceTo(pos) < f2.loc.getDistanceTo(pos) ? -1 : 0;
+//                }
+//            }
+//        });
+//        return (List) (fs.size() > 3 ? fs.subList(0, 2) : fs);
     }
 
     /**
@@ -566,13 +573,13 @@ public class ModSimLoader {
 
         while (var3.hasNext()) {
             Building b = (Building) var3.next();
-            if (b.jobType.contentEquals(jobType) && b.occupants != null) {
+            if (b.jobType.contentEquals(jobType) && b.occupants != null&&b.occupants.size()>0) {
                 bs.add(b);
                 ModSimLoader.log.info("找到建筑： " + b.buildingName);
             }
         }
 
-        Collections.sort(bs, new Comparator<Building>() {
+        /*Collections.sort(bs, new Comparator<Building>() {
             @Override
             public int compare(Building b1, Building b2) {
                 if (b1.controlXYZ.getDistanceTo(pos) > b2.controlXYZ.getDistanceTo(pos)) {
@@ -581,7 +588,7 @@ public class ModSimLoader {
                     return b1.controlXYZ.getDistanceTo(pos) < b2.controlXYZ.getDistanceTo(pos) ? -1 : 0;
                 }
             }
-        });
+        });*/
         return bs;
     }
 

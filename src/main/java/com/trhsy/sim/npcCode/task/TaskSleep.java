@@ -10,6 +10,7 @@ import com.trhsy.sim.npcCode.NpcData;
 import com.trhsy.sim.npcCode.V3;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 
 /**
  * @Author fan
@@ -20,6 +21,8 @@ import net.minecraft.item.ItemStack;
  **/
 public class TaskSleep extends Task {
     long fs_t;
+    private boolean isAtHome = false;
+    private boolean wasAtHome = false;
     public TaskSleep(NpcData folk, long ms, String statusText) {
         super(folk, ms);
         this.statusText = statusText;
@@ -36,9 +39,10 @@ public class TaskSleep extends Task {
     @Override
     public void onTaskBegin() {
         this.folk.stayPut = true;
-        this.folk.holding = new ItemStack(Blocks.AIR);
+        this.folk.holding = ItemStack.EMPTY;
         this.folk.setStatus(this.statusText);
         this.fs_t=0l;
+        this.isAtHome = checkIfAtHome();
     }
 
     /**
@@ -50,11 +54,33 @@ public class TaskSleep extends Task {
      **/
     @Override
     public void onUpdate() {
+        this.wasAtHome = this.isAtHome;
+        this.isAtHome = checkIfAtHome();
+        // 状态变化时处理
+        if (!this.wasAtHome && this.isAtHome) {
+            this.folk.stayPut = true;
+            this.fs_t=System.currentTimeMillis();
+            this.folk.setStatus(this.statusText);
+            ModSimLoader.log.info("{} 已到家，开始睡觉", folk.getName());
+        } else if ( !this.isAtHome) {
+            ModSimLoader.log.warn("{} 不在家回家", folk.getName());
+            String fs_n2 = new TextComponentTranslation("container.sim.folk_data_Going_home").getUnformattedText();
+            this.folk.setStatus(fs_n2);
+            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
+                V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z);
+                this.folk.forceMoveToXYZs(v3);
+            }
+        }
+        // 白天则完成任务
+        if (ModSimLoader.isDayTime(this.folk.entity.world)) {
+            this.completeTask();
+        }
+        /*
         if (this.folk.home != null&&!this.folk.isAtLocation(this.folk.home.livingXYZ)) {
             ModSimLoader.log.info(this.folk.getName()+"，有家位置["+this.folk.home.livingXYZ.toString()+"]");
             this.folk.stayPut = false;
 //            if(!this.folk.forceMoveToXYZ(this.folk.home.livingXYZ)){
-            V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y+1,this.folk.home.livingXYZ.z);
+            V3 v3=new V3(this.folk.home.livingXYZ.x,this.folk.home.livingXYZ.y,this.folk.home.livingXYZ.z);
             this.folk.forceMoveToXYZs(v3);
 //            }
             this.fs_t=System.currentTimeMillis();
@@ -66,9 +92,12 @@ public class TaskSleep extends Task {
         if (ModSimLoader.isDayTime(this.folk.entity.world)) {
             this.completeTask();
         }
-
+*/
     }
-
+    private boolean checkIfAtHome() {
+        return this.folk.home != null &&
+                this.folk.isAtLocation(this.folk.home.livingXYZ);
+    }
     @Override
     public void onTaskComplete() {
         this.folk.stayPut = false;
