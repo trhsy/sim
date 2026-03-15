@@ -1458,7 +1458,8 @@ public class NpcData {
 
             }
             this.job = null;
-            this.holding = new ItemStack(Blocks.AIR);
+            // 清空手持物品，恢复自然下垂状态
+            this.holding = ItemStack.EMPTY;
             if (this.entity != null) {
                 this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
             }
@@ -1993,8 +1994,11 @@ public class NpcData {
             if (this.entity != null && !this.world.isRemote) {
                 //更新NPC
                 this.entity.onFolkUpdate();
-                if(this.holding!=null){
+                // 同步手持物品到实体（包括清空）
+                if (this.holding != null && !this.holding.isEmpty()) {
                     this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
+                } else {
+                    this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 }
 
                 //获取NPC位置
@@ -2254,6 +2258,11 @@ public class NpcData {
                 //应该工作就去工作
                 if (this.job != null && this.shouldWork()) {
                     this.job.onSecond();
+                } else {
+                    // 不工作时，确保没有手持物品
+                    if (this.holding != null && !this.holding.isEmpty()) {
+                        this.holding = ItemStack.EMPTY;
+                    }
                 }
 
                 if (this.home != null) {
@@ -2267,6 +2276,13 @@ public class NpcData {
                         this.stayPut = false;
                         this.isSleeping = false;
                     }
+                }
+
+                // 同步手持物品到实体（包括清空）
+                if (this.holding != null && !this.holding.isEmpty()) {
+                    this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
+                } else {
+                    this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 }
 
                 if (this.entity != null) {
@@ -3304,7 +3320,12 @@ public class NpcData {
                 this.job = new JobTerrainFormer(this, v3, world);
                 //建筑师
             } else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
-                this.job = new JobBuilder(this, v3,0, world);
+                this.job = new JobBuilder(this, v3, 0, world);
+                // 确保建筑师手持圆石
+                this.holding = new ItemStack(Blocks.COBBLESTONE);
+                if (this.entity != null) {
+                    this.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.holding);
+                }
                 //屠夫
             }else if (jobName.contentEquals(new TextComponentTranslation("container.sim.Vocation15",new Object[0]).getUnformattedText())) {
                 this.job = new JobButcher(this, v3.toBlockPos(), world);

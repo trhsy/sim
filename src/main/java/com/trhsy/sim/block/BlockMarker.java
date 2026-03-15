@@ -40,8 +40,8 @@ public class BlockMarker extends Block {
     // 调整碰撞盒：更细长的立柱（X/Z方向0.15格宽，Y方向1.0格高，更贴近“标记棒”的视觉效果）
     // 复用老版本的尺寸：X(0.4~0.6)、Y(0.0~0.9)、Z(0.4~0.6)
     protected static final AxisAlignedBB MARKER_AABB = new AxisAlignedBB(
-            0.4F, 0.0F, 0.4F,  // 最小坐标（X1, Y1, Z1）
-            0.6F, 1.0F, 0.6F   // 最大坐标（X2, Y2, Z2）
+            0.47F, 0.1F, 0.47F,  // 最小坐标（X1, Y1, Z1）
+            0.53F, 0.9F, 0.53F   // 最大坐标（X2, Y2, Z2）
     );
     public BlockMarker() {
         super(Material.WOOD);

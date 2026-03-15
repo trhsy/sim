@@ -104,10 +104,10 @@ public class PacketHireFolk implements IMessage {
                 //被其他地方雇佣，尝试雇佣其他人
                 ctx.getServerHandler().player.sendMessage(new TextComponentString(fd.getName() + new TextComponentTranslation("container.sim.hire_elsewhere",new Object[0]).getUnformattedText()));
             } else {
-                //建筑工
+                //建筑工、规划师、农民、矿工在hireAt中处理
                 if (message.job.contentEquals(new TextComponentTranslation("container.sim.Vocation1",new Object[0]).getUnformattedText())) {
-                    fd.job = new JobBuilder(fd, message.pos, message.buildDirection, world);
-                    BlockConstructorBox cons = (BlockConstructorBox) fd.job.jobWorld.getBlockState(v3.toBlockPos()).getBlock();
+                    //建筑工在hireAt中创建Job
+                    BlockConstructorBox cons = (BlockConstructorBox) world.getBlockState(v3.toBlockPos()).getBlock();
                     cons.employee = fd;
                     //规划师
                 }else if(message.job.contentEquals(new TextComponentTranslation("container.sim.Vocation16",new Object[0]).getUnformattedText())){
@@ -132,8 +132,8 @@ public class PacketHireFolk implements IMessage {
                         mineBox.saveMine();
                     }
                 }
-                    //去雇佣地点
-                    fd.hireAt(message.pos, message.job, world);
+                //去雇佣地点
+                fd.hireAt(message.pos, message.job, world);
 
 
             }

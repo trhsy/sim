@@ -18,10 +18,12 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -120,6 +122,9 @@ public class JobBuilder extends Job {
         super(folk, pos, world);
         try {
             folk.holding = new ItemStack(Blocks.COBBLESTONE);
+            if (folk.entity != null) {
+                folk.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, folk.holding);
+            }
             //建筑工
             this.jobName = new TextComponentTranslation("container.sim.Vocation1", new Object[0]).getUnformattedText();
             V3 v3=new V3(V3.fromBlockPos(pos).x+0.5,V3.fromBlockPos(pos).y,V3.fromBlockPos(pos).z+0.5);
@@ -191,6 +196,9 @@ public class JobBuilder extends Job {
         super(folk, pos, world);
         try {
             folk.holding = new ItemStack(Blocks.COBBLESTONE);
+            if (folk.entity != null) {
+                folk.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, folk.holding);
+            }
             this.jobName = new TextComponentTranslation("container.sim.Vocation1", new Object[0]).getUnformattedText();
             this.constructorPos = pos;
             this.startPos = pos;
@@ -226,6 +234,9 @@ public class JobBuilder extends Job {
         super(folk, pos, world);
         try {
             folk.holding = new ItemStack(Blocks.COBBLESTONE);
+            if (folk.entity != null) {
+                folk.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, folk.holding);
+            }
             this.jobName = new TextComponentTranslation("container.sim.Vocation1", new Object[0]).getUnformattedText();
             this.constructorPos = pos.toBlockPos();
             this.startPos = pos.toBlockPos();
@@ -266,6 +277,19 @@ public class JobBuilder extends Job {
     @Override
     public void onUpdate() {
         super.onUpdate();
+        // 确保建造师手持圆石
+        // 注意：如果folk.job不再是当前JobBuilder（被解雇了），则不再设置手持物品
+        if (this.folk != null && this.folk.entity != null && this.folk.job == this) {
+            // 确保holding是圆石
+            if (this.folk.holding == null || this.folk.holding.isEmpty() || this.folk.holding == ItemStack.EMPTY) {
+                this.folk.holding = new ItemStack(Blocks.COBBLESTONE);
+            }
+            // 设置到实体主手
+            ItemStack mainHandItem = this.folk.entity.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
+            if (mainHandItem == null || mainHandItem.isEmpty() || !mainHandItem.isItemEqual(this.folk.holding)) {
+                this.folk.entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.folk.holding);
+            }
+        }
         if (this.atWork) {
             if (this.stage == -1) {
                 this.builder_stage = 0;
@@ -416,6 +440,7 @@ public class JobBuilder extends Job {
     public void placeBlock() {
         ModSimLoader.log.info("放置方块:{}",System.currentTimeMillis()/1000);
         try {
+            // 先尝试放置方块，成功后再播放音效和动画
             //正常的块
             boolean normalBlock = true;
             //已放置
@@ -679,19 +704,6 @@ public class JobBuilder extends Job {
                 }
                 this.placedBlocks.add(new V3(newBP));
             }
-            long now = System.currentTimeMillis();
-            if (now - this.timeSwingArm > 3000) {
-                this.timeSwingArm = now;
-                //摇手
-                    this.folk.entity.swingEntityArm(this.folk.entity,EnumHand.MAIN_HAND,true);
-                //建造的音效
-                SoundEvent construction = SoundRegistry.CONSTRUCTION;
-                if (construction == null || construction.getRegistryName() == null) {
-                    ModSimLoader.log.error("播放失败：sim:construction 声音事件未注册");
-                } else {
-                    this.jobWorld.playSound(null,newBP.getX(), newBP.getY(), newBP.getZ(), construction, SoundCategory.BLOCKS, 10.0F, 1.0F);
-                }
-            }
             //放置方块
             this.folk.setStatus(new TextComponentTranslation("container.sim.JobBuilder3", new Object[0]).getUnformattedText());
 
@@ -706,6 +718,21 @@ public class JobBuilder extends Job {
                 this.jobWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
             }
 
+            // 方块放置成功后，播放音效和动画
+            if (this.folk != null && this.folk.entity != null) {
+                //摇手（使用EntityNpc的swing方法，发送动画包到客户端）
+                this.folk.entity.swing();
+                //播放放置方块音效（每1.5秒播放一次，避免重叠）
+                long now = System.currentTimeMillis();
+                if (now - this.timeSwingArm > 1500) {
+                    this.timeSwingArm = now;
+                    // 播放方块放置音效
+                    SoundEvent placeSound = SoundEvents.BLOCK_STONE_PLACE;
+                    if (placeSound != null && placeSound.getRegistryName() != null) {
+                        this.jobWorld.playSound(null, this.folk.entity.posX, this.folk.entity.posY, this.folk.entity.posZ, placeSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    }
+                }
+            }
 
             int b4 = (int) Math.floor(this.folk.skillBuilding);
             //建筑等级

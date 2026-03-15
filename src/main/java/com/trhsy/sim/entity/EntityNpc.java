@@ -29,6 +29,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -459,19 +460,38 @@ public class EntityNpc extends EntityCreature implements INpc {
      * @Date 15:44 2022/10/18
      * @Param []
      **/
+    // 手臂摆动动画计时器
+    private int swingAnimTick = 0;
+    
     public void swing() {
         try {
-            ItemStack stack = this.theData.holding;
-            if (!stack.isEmpty()) {
-                if (stack.getItem().onEntitySwing(this, stack)) {
-                    return;
-                }
+            // 设置手臂摆动动画计时器（1.12.2使用类似1.20.1的方式）
+            // 在1.12.2中，我们通过设置swingProgress来实现手臂摆动
+            this.swingProgressInt = 6; // 设置摆动持续6个tick
+            this.swingProgress = 1.0f; // 设置摆动进度为最大值
+            
+            // 在服务器端，发送动画包到所有客户端
+            if (!this.world.isRemote && this.world instanceof WorldServer) {
+                WorldServer worldServer = (WorldServer) this.world;
+                // 使用Minecraft原生的方式发送手臂挥动动画
+                // 动画类型 0 = 主手挥动
+                worldServer.getEntityTracker().sendToTracking(this, new SPacketAnimation(this, 0));
             }
-            ((WorldServer) this.world).getEntityTracker().sendToTracking(this, new SPacketAnimation(this, 3));
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
             ModSimLoader.log.error("swing出错了：" + e.getMessage() + "行数：" + element.getLineNumber());
         }
+    }
+    
+    @Override
+    public float getSwingProgress(float partialTickTime) {
+        // 重写手臂摆动进度计算，使用类似1.20.1的方式
+        if (this.swingProgressInt <= 0) {
+            return 0.0f;
+        }
+        // 计算摆动进度，使用sin函数模拟自然的摆动曲线
+        float progress = (this.swingProgressInt - partialTickTime) / 6.0f;
+        return MathHelper.sin((1.0f - progress) * (float)Math.PI) * 0.8f;
     }
     /**
      * 让实体挥动手臂，处理客户端和服务器端同步

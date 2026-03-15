@@ -14,10 +14,16 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
+import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -50,7 +56,7 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
             }
         };
         this.addLayer(layerbipedarmor);
-//        this.addLayer(new LayerHeldItem(this));
+        this.addLayer(new LayerHeldItem(this));
     }
 
     @Override
@@ -151,6 +157,16 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
      **/
     @Override
     public void doRender(EntityNpc par1Entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        // 在渲染前设置手臂姿态
+        ModelBiped model = (ModelBiped) this.getMainModel();
+        boolean hasItem = par1Entity.getHeldItemMainhand() != null && !par1Entity.getHeldItemMainhand().isEmpty();
+        if (hasItem) {
+            model.rightArmPose = ModelBiped.ArmPose.ITEM;
+        } else {
+            model.rightArmPose = ModelBiped.ArmPose.EMPTY;
+        }
+        model.leftArmPose = ModelBiped.ArmPose.EMPTY;
+        
         super.doRender(par1Entity, x, y, z, entityYaw, partialTicks);
         this.doRenderFolk(par1Entity, x, y, z, entityYaw, partialTicks);
     }
@@ -202,12 +218,7 @@ public class RenderEntityFolk extends RenderBiped<EntityNpc> {
                         this.displayText(data.hunger, 0.02F, -256, (float) x, (float) y + f3 + f6 + 0.0F, (float) z, entityFolk);
                     }
                 }
-                ModelBiped biped = (ModelBiped) this.getMainModel();
-                if (entityFolk.getHeldItemMainhand() != null) {
-                    biped.rightArmPose = ModelBiped.ArmPose.ITEM;
-                } else {
-                    biped.rightArmPose = ModelBiped.ArmPose.EMPTY;
-                }
+                // 手臂姿态设置已移至setModelAttributes方法中处理
             }
         } catch (Exception e) {
             StackTraceElement element = e.getStackTrace()[0];
